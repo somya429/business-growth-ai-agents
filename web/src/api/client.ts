@@ -586,8 +586,12 @@ const mockStore = new MockBackendState();
 export const api = {
   async listBusinesses(): Promise<BusinessProfile[]> {
     if (API_MODE === 'live') {
-      const res = await fetch(`${API_URL}/api/businesses`);
-      return res.json();
+      try {
+        const res = await fetch(`${API_URL}/api/businesses`);
+        if (res.ok) return await res.json();
+      } catch (err) {
+        console.warn('Live API unreachable for listBusinesses, falling back to mock store', err);
+      }
     }
     await new Promise((r) => setTimeout(r, 120));
     return mockStore.getBusinesses();
@@ -595,8 +599,12 @@ export const api = {
 
   async switchBusiness(id: string): Promise<BusinessProfile> {
     if (API_MODE === 'live') {
-      const res = await fetch(`${API_URL}/api/businesses/${id}`);
-      return res.json();
+      try {
+        const res = await fetch(`${API_URL}/api/businesses/${id}`);
+        if (res.ok) return await res.json();
+      } catch (err) {
+        console.warn('Live API unreachable for switchBusiness, falling back to mock store', err);
+      }
     }
     await new Promise((r) => setTimeout(r, 100));
     return mockStore.setActiveBusiness(id);
@@ -604,15 +612,18 @@ export const api = {
 
   async createBusiness(profile: Partial<BusinessProfile>): Promise<BusinessProfile> {
     if (API_MODE === 'live') {
-      const res = await fetch(`${API_URL}/api/businesses`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(profile),
-      });
-      if (!res.ok) {
-        throw new Error(`Failed to create business: ${res.statusText}`);
+      try {
+        const res = await fetch(`${API_URL}/api/businesses`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(profile),
+        });
+        if (res.ok) {
+          return await res.json();
+        }
+      } catch (err) {
+        console.warn('Live API unreachable for createBusiness, falling back to mock store', err);
       }
-      return res.json();
     }
     await new Promise((r) => setTimeout(r, 150));
     return mockStore.createBusiness(profile);
@@ -879,68 +890,92 @@ export const api = {
 
   async getTaskDetails(taskId: string): Promise<{ task: Task; events: TaskEvent[]; versions: TaskVersion[]; report?: AgentReport | null }> {
     if (API_MODE === 'live') {
-      const res = await fetch(`${API_URL}/api/tasks/${taskId}`);
-      if (res.ok) return await res.json();
+      try {
+        const res = await fetch(`${API_URL}/api/tasks/${taskId}`);
+        if (res.ok) return await res.json();
+      } catch (err) {
+        console.warn('Live API unavailable for getTaskDetails, falling back to mock store', err);
+      }
     }
     return mockStore.getTaskDetails(taskId);
   },
 
   async updateTask(taskId: string, updates: Record<string, any>, reason = 'Updated'): Promise<{ task: Task; version: TaskVersion }> {
     if (API_MODE === 'live') {
-      const res = await fetch(`${API_URL}/api/tasks/${taskId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ updates, reason }),
-      });
-      if (res.ok) return await res.json();
+      try {
+        const res = await fetch(`${API_URL}/api/tasks/${taskId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ updates, reason }),
+        });
+        if (res.ok) return await res.json();
+      } catch (err) {
+        console.warn('Live API unavailable for updateTask, falling back to mock store', err);
+      }
     }
     throw new Error(`Failed to update task ${taskId}`);
   },
 
   async transitionTask(taskId: string, toStatus: string, reason = ''): Promise<{ task: Task; event: TaskEvent }> {
     if (API_MODE === 'live') {
-      const res = await fetch(`${API_URL}/api/tasks/${taskId}/transition`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ to_status: toStatus, reason }),
-      });
-      if (res.ok) return await res.json();
+      try {
+        const res = await fetch(`${API_URL}/api/tasks/${taskId}/transition`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ to_status: toStatus, reason }),
+        });
+        if (res.ok) return await res.json();
+      } catch (err) {
+        console.warn('Live API unavailable for transitionTask, falling back to mock store', err);
+      }
     }
     throw new Error(`Failed to transition task ${taskId}`);
   },
 
   async pauseTask(taskId: string, reason = 'Paused'): Promise<{ task: Task; event: TaskEvent }> {
     if (API_MODE === 'live') {
-      const res = await fetch(`${API_URL}/api/tasks/${taskId}/pause`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reason }),
-      });
-      if (res.ok) return await res.json();
+      try {
+        const res = await fetch(`${API_URL}/api/tasks/${taskId}/pause`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ reason }),
+        });
+        if (res.ok) return await res.json();
+      } catch (err) {
+        console.warn('Live API unavailable for pauseTask, falling back to mock store', err);
+      }
     }
     throw new Error(`Failed to pause task ${taskId}`);
   },
 
   async resumeTask(taskId: string, reason = 'Resumed'): Promise<{ task: Task; event: TaskEvent }> {
     if (API_MODE === 'live') {
-      const res = await fetch(`${API_URL}/api/tasks/${taskId}/resume`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reason }),
-      });
-      if (res.ok) return await res.json();
+      try {
+        const res = await fetch(`${API_URL}/api/tasks/${taskId}/resume`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ reason }),
+        });
+        if (res.ok) return await res.json();
+      } catch (err) {
+        console.warn('Live API unavailable for resumeTask, falling back to mock store', err);
+      }
     }
     throw new Error(`Failed to resume task ${taskId}`);
   },
 
   async executeTask(taskId: string, context?: Record<string, any>): Promise<{ task: Task; report: AgentReport }> {
     if (API_MODE === 'live') {
-      const res = await fetch(`${API_URL}/api/tasks/${taskId}/execute`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ context }),
-      });
-      if (res.ok) return await res.json();
+      try {
+        const res = await fetch(`${API_URL}/api/tasks/${taskId}/execute`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ context }),
+        });
+        if (res.ok) return await res.json();
+      } catch (err) {
+        console.warn('Live API unavailable for executeTask, falling back to mock store', err);
+      }
     }
     return mockStore.executeTask(taskId);
   },

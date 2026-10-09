@@ -569,5 +569,6 @@ def approve_task_endpoint(task_id: str, req: ApproveTaskRequest) -> dict[str, An
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
-    logger.info(f"Starting Verity FastAPI backend on http://127.0.0.1:{port}")
-    uvicorn.run("api_server:app", host="127.0.0.1", port=port, reload=True)
+    host = os.environ.get("HOST", "0.0.0.0")
+    logger.info(f"Starting Verity FastAPI backend on http://{host}:{port}")
+    uvicorn.run("api_server:app", host=host, port=port, reload=True)
