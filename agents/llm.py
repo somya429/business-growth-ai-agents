@@ -55,7 +55,7 @@ DEFAULT_MODELS = {
     "gemini": os.environ.get("GEMINI_MODEL", "gemini-3.8-flash"),
     "grok": os.environ.get("GROK_MODEL", "grok-2-latest"),
     "groq": os.environ.get("GROQ_MODEL", "qwen/qwen3.8-27b"),
-    "ollama": "llama3.2",
+    "ollama": os.environ.get("OLLAMA_MODEL", "llama3.2"),
     "mock": "mock-deterministic",
 }
 

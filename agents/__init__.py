@@ -6,7 +6,9 @@ from agents.outreach import run_outreach
 from agents.content import run_content
 from agents.followup import run_followup
 from agents.learning import run_learning
-from agents.base import AGENT_PERMISSIONS, check_permission, enforce_permission
+from agents.compass import run_compass
+from agents.herald import run_herald
+from agents.base import AGENT_PERMISSIONS, check_permission, enforce_permission, get_prompt_metadata
 
 __all__ = [
     "run_research",
@@ -15,7 +17,10 @@ __all__ = [
     "run_content",
     "run_followup",
     "run_learning",
+    "run_compass",
+    "run_herald",
     "AGENT_PERMISSIONS",
     "check_permission",
     "enforce_permission",
+    "get_prompt_metadata",
 ]

@@ -31,9 +31,13 @@ venv.bak/
 # Environment and sensitive keys / secrets
 .env
 .env.*
+!.env.example
 *.key
 *.pem
 *supabase*key*
+
+# Dependencies
+node_modules/
 
 # Testing & tool caches
 .pytest_cache/
@@ -44,6 +48,8 @@ htmlcov/
 
 # Local stores and runtime artifacts
 data/crm_store.json
+runtime/
+*.sqlite
 
 # IDE and OS
 .vscode/

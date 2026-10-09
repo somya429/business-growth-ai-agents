@@ -1,173 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growth Agents — Autonomous AI Growth Pipeline</title>
-    <meta name="description" content="Production-grade multi-agent autonomous growth pipeline for research, scoring, and grounded outreach.">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
-</head>
-<body>
-    <div class="app-container">
-        <!-- Top Navigation Bar -->
-        <header class="navbar">
-            <div class="brand">
-                <div class="logo-mark">⚡</div>
-                <div class="brand-text">
-                    <h1>GROWTH<span>AGENTS</span></h1>
-                    <span class="brand-subtitle">Autonomous Enterprise Pipeline</span>
-                </div>
-            </div>
-            
-            <div class="header-controls">
-                <div class="status-indicator">
-                    <span class="pulse-dot"></span>
-                    <span class="status-text">Pipeline Ready</span>
-                </div>
-                <div class="badge-tag">Zero Hallucinations Guarantee</div>
-            </div>
-        </header>
-
-        <!-- Configuration Bar -->
-        <section class="control-panel">
-            <div class="control-group">
-                <label for="business-select">Target Business</label>
-                <select id="business-select" class="custom-select">
-                    <option value="saas">CloudPulse Systems (B2B SaaS)</option>
-                    <option value="ecommerce">Aura Living (Sustainable Goods)</option>
-                    <option value="local_services">Apex Commercial HVAC</option>
-                </select>
-            </div>
-
-            <div class="control-group">
-                <label for="lead-select">Target Account / Lead</label>
-                <select id="lead-select" class="custom-select">
-                    <!-- Populated dynamically -->
-                </select>
-            </div>
-
-            <div class="control-group">
-                <label for="provider-select">Execution Provider</label>
-                <select id="provider-select" class="custom-select">
-                    <option value="gemini">Gemini 3.8 Flash (Live)</option>
-                    <option value="mock">Deterministic Mock (Instant)</option>
-                </select>
-            </div>
-
-            <div class="action-group">
-                <button id="run-pipeline-btn" class="primary-btn">
-                    <span class="btn-icon">▶</span>
-                    <span class="btn-text">Run Full Pipeline</span>
-                    <span class="spinner hidden"></span>
-                </button>
-            </div>
-        </section>
-
-        <!-- Pipeline Workflow Progress Stepper -->
-        <section class="stepper-section">
-            <div class="stepper-item" id="step-research">
-                <div class="step-circle">1</div>
-                <div class="step-label">
-                    <strong>Research Agent</strong>
-                    <span>Fact Extraction</span>
-                </div>
-            </div>
-            <div class="stepper-line"></div>
-            <div class="stepper-item" id="step-scoring">
-                <div class="step-circle">2</div>
-                <div class="step-label">
-                    <strong>Scoring & Timing</strong>
-                    <span>Anti-Spam & Fit</span>
-                </div>
-            </div>
-            <div class="stepper-line"></div>
-            <div class="stepper-item" id="step-outreach">
-                <div class="step-circle">3</div>
-                <div class="step-label">
-                    <strong>Outreach Agent</strong>
-                    <span>Grounded Draft</span>
-                </div>
-            </div>
-            <div class="stepper-line"></div>
-            <div class="stepper-item" id="step-audit">
-                <div class="step-circle">✓</div>
-                <div class="step-label">
-                    <strong>Audit Trace</strong>
-                    <span>Transparency Log</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Main Dashboard 3-Column Grid -->
-        <main class="dashboard-grid">
-            <!-- Column 1: Research Agent Output -->
-            <section class="dash-card" id="card-research">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <span class="card-badge">AGENT 1</span>
-                        <h2>Verified Facts</h2>
-                    </div>
-                    <span id="facts-count-badge" class="count-pill">0 Verified</span>
-                </div>
-                <p class="card-desc">Extracted atomic facts with strict origin provenance and zero promotional language.</p>
-                <div class="card-body scrollable" id="facts-container">
-                    <div class="empty-state">Run pipeline to inspect extracted facts.</div>
-                </div>
-            </section>
-
-            <!-- Column 2: Scoring Agent Output -->
-            <section class="dash-card" id="card-scoring">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <span class="card-badge">AGENT 2</span>
-                        <h2>ICP Scoring & Timing</h2>
-                    </div>
-                    <span id="decision-badge" class="decision-pill pending">Pending</span>
-                </div>
-                <p class="card-desc">Evaluates intent, evidence freshness, and enforces hard opt-out boundaries.</p>
-                
-                <div class="card-body" id="scoring-container">
-                    <div class="empty-state">Run pipeline to evaluate lead score.</div>
-                </div>
-            </section>
-
-            <!-- Column 3: Outreach Agent Output -->
-            <section class="dash-card" id="card-outreach">
-                <div class="card-header">
-                    <div class="card-title-group">
-                        <span class="card-badge">AGENT 3</span>
-                        <h2>Grounded Outreach Draft</h2>
-                    </div>
-                    <span class="review-pill">Human-in-the-Loop</span>
-                </div>
-                <p class="card-desc">Synthesized message citing only verified fact IDs. Never auto-sends.</p>
-                
-                <div class="card-body" id="outreach-container">
-                    <div class="empty-state">Run pipeline to generate reviewable draft.</div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Bottom Audit Trail Drawer -->
-        <section class="trace-section">
-            <div class="trace-header">
-                <div class="trace-title">
-                    <span class="trace-icon">🛡️</span>
-                    <h3>Immutable Trace Audit Events</h3>
-                    <span id="trace-count" class="count-pill">0 Events</span>
-                </div>
-                <button id="toggle-trace-btn" class="secondary-btn small-btn">Collapse Trace</button>
-            </div>
-            <div class="trace-body" id="trace-container">
-                <div class="empty-state">No trace events recorded yet.</div>
-            </div>
-        </section>
-    </div>
-
-    <script src="app.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verity — Growth, verified</title>
+    <meta name="description" content="Agents that find leads, write outreach and follow up. Every claim is checked. You approve what goes out." />
+    <!-- Favicon: gold diamond on ivory -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='2' fill='%23FAF8F4'/><text x='16' y='23' font-size='22' text-anchor='middle' fill='%238F7036' font-family='serif'>◆</text></svg>" />
+    
+    <!-- Preload Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-bg text-text antialiased selection:bg-[#8F703620] selection:text-text min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

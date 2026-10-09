@@ -16,80 +16,75 @@ logger = logging.getLogger("agents.base")
 # Base directory for prompt templates
 PROMPTS_DIR = Path(__file__).parent / "prompts"
 
-# Explicit permission map: allowed capabilities and strictly forbidden actions per agent
-AGENT_PERMISSIONS: dict[str, dict[str, list[str]]] = {
-    "research": {
-        "allowed_tools": ["read_crm", "search_kb", "web_search_stub"],
-        "forbidden_actions": ["write_copy", "send", "edit_kb", "quote_price"],
-    },
-    "scoring": {
-        "allowed_tools": ["evaluate_fit", "evaluate_timing", "read_memory"],
-        "forbidden_actions": ["contact_lead", "send", "write_copy", "edit_kb"],
-    },
-    "outreach": {
-        "allowed_tools": ["grounded_drafting"],
-        "forbidden_actions": ["web_search", "send", "edit_kb", "invent_claims"],
-    },
-    "content": {
-        "allowed_tools": ["grounded_content_generation"],
-        "forbidden_actions": ["web_search", "send", "edit_kb", "invent_claims"],
-    },
-    "followup": {
-        "allowed_tools": ["analyze_reply", "record_opt_out"],
-        "forbidden_actions": ["quote_price", "send", "invent_claims"],
-    },
-    "learning": {
-        "allowed_tools": ["aggregate_metrics", "generate_insights"],
-        "forbidden_actions": ["change_policy", "edit_anti_spam", "send"],
-    },
-}
+# Explicit permission map and check imported from central core engine
+from core.permissions import (
+    AGENT_PERMISSIONS,
+    PermissionDeniedError,
+    check_permission,
+    enforce_node_permission as enforce_permission,
+)
 
 
-class PermissionDeniedError(RuntimeError):
-    """Raised when an agent attempts a forbidden action or unpermitted tool."""
-    pass
+def _resolve_template_path(agent_name: str) -> Path:
+    """Resolve prompt markdown file, with alias fallbacks."""
+    norm = agent_name.lower()
+    path = PROMPTS_DIR / f"{norm}.md"
+    if path.exists():
+        return path
+    alias_map = {
+        "scout": "research",
+        "cadence": "scoring",
+        "quill": "outreach",
+        "muse": "content",
+        "echo": "followup",
+        "sage": "learning",
+    }
+    if norm in alias_map:
+        alias_path = PROMPTS_DIR / f"{alias_map[norm]}.md"
+        if alias_path.exists():
+            return alias_path
+    return path
 
 
-def check_permission(agent_name: str, action: str) -> None:
-    """Validate that an agent has permission to execute an action."""
-    perms = AGENT_PERMISSIONS.get(agent_name)
-    if not perms:
-        raise PermissionDeniedError(f"Agent '{agent_name}' has no defined permission boundary.")
+def get_prompt_metadata(agent_name: str) -> dict[str, Any]:
+    """Parse YAML frontmatter from prompt file, returning version, output_schema, etc."""
+    template_path = _resolve_template_path(agent_name)
+    meta: dict[str, Any] = {"version": "1.0.0", "output_schema": "AgentReport"}
+    if not template_path.exists():
+        return meta
 
-    forbidden = perms.get("forbidden_actions", [])
-    if action in forbidden:
-        raise PermissionDeniedError(
-            f"SECURITY VIOLATION: Agent '{agent_name}' is forbidden from executing '{action}'."
-        )
-
-    allowed = perms.get("allowed_tools", [])
-    if action not in allowed:
-        raise PermissionDeniedError(
-            f"SECURITY VIOLATION: Action '{action}' is not in allowed tools for agent '{agent_name}'."
-        )
-
-
-def enforce_permission(agent_name: str, action_name: str) -> Callable:
-    """Decorator to protect functions and ensure the caller agent has permission."""
-    def decorator(fn: Callable) -> Callable:
-        @functools.wraps(fn)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
-            check_permission(agent_name, action_name)
-            return fn(*args, **kwargs)
-        return wrapper
-    return decorator
+    try:
+        content = template_path.read_text(encoding="utf-8")
+        if content.startswith("---"):
+            parts = content.split("---", 2)
+            if len(parts) >= 3:
+                frontmatter = parts[1]
+                for line in frontmatter.splitlines():
+                    line = line.strip()
+                    if ":" in line:
+                        k, v = line.split(":", 1)
+                        meta[k.strip()] = v.strip().strip("'\"")
+    except Exception as exc:
+        logger.debug(f"Could not parse prompt metadata for {agent_name}: {exc}")
+    return meta
 
 
 def load_prompt_template(agent_name: str, **variables: Any) -> str:
     """Load a markdown prompt template and inject variables.
 
     Ensures zero hardcoded business wording by strictly reading from template.
+    Strips YAML frontmatter so LLMs receive clean instructions.
     """
-    template_path = PROMPTS_DIR / f"{agent_name}.md"
+    template_path = _resolve_template_path(agent_name)
     if not template_path.exists():
         raise FileNotFoundError(f"Prompt template not found at {template_path}")
 
     template_str = template_path.read_text(encoding="utf-8")
+    if template_str.startswith("---"):
+        parts = template_str.split("---", 2)
+        if len(parts) >= 3:
+            template_str = parts[2].strip()
+
     for key, value in variables.items():
         placeholder = f"{{{key}}}"
         template_str = template_str.replace(placeholder, str(value))
@@ -103,10 +98,13 @@ def record_trace(
     input_summary: str,
     output_summary: str,
     reason: str,
+    prompt_version: str | None = None,
 ) -> None:
     """Append a structured TraceEvent to state['trace'] without mutating unrelated state."""
     if "trace" not in state or not isinstance(state["trace"], list):
         state["trace"] = []
+
+    version = prompt_version or get_prompt_metadata(agent).get("version", "1.0.0")
 
     event = TraceEvent(
         agent=agent,
@@ -115,8 +113,18 @@ def record_trace(
         output_summary=output_summary,
         reason=reason,
         timestamp=datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        prompt_version=version,
     )
     state["trace"].append(event)
+
+    run_id = state.get("run_id")
+    if run_id:
+        try:
+            from core.repo import get_repo
+            get_repo().append_trace(run_id, event)
+        except Exception:
+            pass
+
 
 
 def agent_node(agent_name: str) -> Callable:

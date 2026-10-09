@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import os
 import pytest
 
 from agents.base import (
@@ -42,6 +43,13 @@ from shared.schemas import (
 )
 
 BUSINESSES = ["saas", "ecommerce", "local_services"]
+
+
+@pytest.fixture(autouse=True)
+def ensure_mock_mode_for_tests(monkeypatch):
+    """Ensure unit tests run deterministically in mock mode without consuming live API quotas."""
+    if not os.environ.get("TEST_LIVE_LLM"):
+        monkeypatch.setenv("LLM_PROVIDER", "mock")
 
 
 # ---------------------------------------------------------------------------

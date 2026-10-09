@@ -19,6 +19,7 @@ from agents.outreach import run_outreach
 from shared.schemas import GrowthState, KnowledgeBaseDoc, TraceEvent
 
 DATA_DIR = Path(__file__).parent.parent / "data"
+FIXTURES_DIR = Path(__file__).parent.parent / "tests" / "fixtures"
 
 BUSINESS_MAP = {
     "saas": "saas",
@@ -29,12 +30,20 @@ BUSINESS_MAP = {
 }
 
 
-def load_business_state(business_key: str) -> GrowthState:
+def load_business_state(business_key: str, data_dir: Path | None = None) -> GrowthState:
     folder_name = BUSINESS_MAP.get(business_key.lower(), business_key.lower())
-    biz_dir = DATA_DIR / folder_name
+    import os
+    env_dir = Path(os.environ["VERITY_DATA_DIR"]) if os.environ.get("VERITY_DATA_DIR") else None
+    search_dirs = [data_dir, env_dir, DATA_DIR, FIXTURES_DIR]
+    
+    biz_dir = None
+    for d in search_dirs:
+        if d and (d / folder_name).exists():
+            biz_dir = d / folder_name
+            break
 
-    if not biz_dir.exists():
-        raise FileNotFoundError(f"Business data directory not found: {biz_dir}")
+    if not biz_dir or not biz_dir.exists():
+        raise FileNotFoundError(f"Business data directory not found for key: {business_key}")
 
     # Load profile
     profile_path = biz_dir / "profile.json"
