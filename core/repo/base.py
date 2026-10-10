@@ -173,6 +173,11 @@ class Repository(ABC):
         """Get run metadata and current status summary."""
         pass
 
+    @abstractmethod
+    def list_runs(self, business_id: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
+        """List recent runs, optionally filtered by business_id."""
+        pass
+
     # -------------------------------------------------------------------------
     # Stage 2: Onboarding Sessions
     # -------------------------------------------------------------------------

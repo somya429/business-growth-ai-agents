@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'ghost';
+  variant?: 'primary' | 'ghost' | 'secondary' | 'accent';
   size?: 'normal' | 'sm';
   to?: string;
   isLoading?: boolean;
@@ -19,14 +19,22 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseStyles =
-    'inline-flex items-center justify-center font-sans font-medium rounded-[2px] transition-colors focus-visible:outline-2 focus-visible:outline-accent select-none';
+    'inline-flex items-center justify-center gap-2 font-sans font-semibold rounded-full border border-[var(--ink)] transition-all cursor-pointer select-none';
 
-  const sizeStyles = size === 'sm' ? 'px-[22px] py-[10px] text-[14px]' : 'px-[26px] py-[14px] text-[15px]';
+  const sizeStyles =
+    size === 'sm' ? 'px-4 py-2 text-xs' : 'px-6 py-3 text-sm';
 
-  const variantStyles =
-    variant === 'primary'
-      ? 'bg-[#1A1C21] text-[#FAF8F4] hover:bg-[#2C3038] disabled:opacity-50'
-      : 'border border-border bg-transparent text-[#1A1C21] hover:border-[#8F703688] disabled:opacity-50';
+  let variantStyles = '';
+  if (variant === 'primary') {
+    variantStyles =
+      'bg-[var(--ink)] text-[var(--bg)] hover:bg-[var(--accent)] hover:text-[var(--ink-deep)] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[3px_3px_0_var(--ink)] disabled:opacity-40 disabled:pointer-events-none';
+  } else if (variant === 'accent') {
+    variantStyles =
+      'bg-[var(--accent)] text-[var(--ink-deep)] border-[var(--accent)] hover:shadow-[3px_3px_0_var(--ink)] hover:-translate-x-[2px] hover:-translate-y-[2px] disabled:opacity-40 disabled:pointer-events-none';
+  } else {
+    variantStyles =
+      'bg-transparent text-[var(--ink)] hover:bg-[var(--tint)] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[3px_3px_0_var(--ink)] disabled:opacity-40 disabled:pointer-events-none';
+  }
 
   const combinedClasses = `${baseStyles} ${sizeStyles} ${variantStyles} ${className}`;
 
@@ -47,3 +55,5 @@ export const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
+
+export default Button;

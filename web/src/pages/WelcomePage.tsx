@@ -23,6 +23,7 @@ import {
   ChevronDown,
   ChevronRight,
   Layers,
+  Zap,
   Building,
   PlusCircle,
   HelpCircle,
@@ -157,7 +158,32 @@ export const WelcomePage: React.FC = () => {
           {/* Recommended Next Actions */}
           <div className="space-y-4">
             <Kicker>RECOMMENDED ACTIONS</Kicker>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <Link
+                to="/command"
+                className="bg-surface border-2 border-amber-500/40 rounded-[4px] p-6 hover:border-amber-500 hover:shadow-lg transition-all group flex flex-col justify-between relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-full filter blur-xl pointer-events-none" />
+                <div className="space-y-2 relative z-10">
+                  <div className="w-10 h-10 rounded-lg bg-amber-500/15 flex items-center justify-center text-amber-500">
+                    <Zap className="w-5 h-5" />
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <h3 className="font-serif text-lg text-text group-hover:text-amber-500 transition-colors">
+                      Apex Command
+                    </h3>
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  </div>
+                  <p className="text-xs text-muted leading-relaxed">
+                    Autonomous Head Orchestrator. Direct human-in-the-loop approvals, multi-agent research dossiers, and executive voice commands.
+                  </p>
+                </div>
+                <div className="pt-4 flex items-center gap-1.5 text-xs font-medium text-amber-500 relative z-10">
+                  <span>Enter Command Deck</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
+
               <Link
                 to="/orchestrator"
                 className="bg-surface border border-border rounded-[4px] p-6 hover:border-accent transition-all group flex flex-col justify-between"

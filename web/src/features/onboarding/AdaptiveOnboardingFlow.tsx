@@ -71,6 +71,7 @@ export const AdaptiveOnboardingFlow: React.FC = () => {
   const [activeStep, setActiveStep] = useState<'core' | 'followups' | 'readiness'>('core');
   const [saveStatus, setSaveStatus] = useState<'saved' | 'saving' | 'error'>('saved');
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const loadedSessionIdRef = useRef<string | null>(null);
 
   // Fetch session data
   const { data: session, isLoading, refetch } = useQuery<OnboardingSession>({
@@ -93,13 +94,30 @@ export const AdaptiveOnboardingFlow: React.FC = () => {
 
   const [followUpAnswers, setFollowUpAnswers] = useState<Record<string, any>>({});
 
+  // Keep references to latest local values to prevent stale closures
+  const latestCoreRef = useRef(coreAnswers);
+  latestCoreRef.current = coreAnswers;
+  const latestFollowUpRef = useRef(followUpAnswers);
+  latestFollowUpRef.current = followUpAnswers;
+
+  // Initialize form state ONLY when a session is loaded initially or sessionId changes
   useEffect(() => {
-    if (session) {
+    if (session && loadedSessionIdRef.current !== session.session_id) {
+      loadedSessionIdRef.current = session.session_id;
       setCoreAnswers(session.core_answers);
       setFollowUpAnswers(session.follow_up_answers || {});
       localStorage.setItem(STORAGE_KEY, session.session_id);
     }
   }, [session]);
+
+  // Clean up debounce timer on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, []);
 
   // Autosave Mutation
   const saveMutation = useMutation({
@@ -113,6 +131,8 @@ export const AdaptiveOnboardingFlow: React.FC = () => {
     },
     onSuccess: (updated) => {
       setSaveStatus('saved');
+      // Update session query cache (for readiness metrics/phase scores)
+      // Note: loadedSessionIdRef prevents this from overwriting active user typing
       queryClient.setQueryData(['onboarding-session', sessionId], updated);
     },
     onError: () => {
@@ -120,9 +140,9 @@ export const AdaptiveOnboardingFlow: React.FC = () => {
     },
   });
 
-  // Debounced Autosave
+  // Debounced Autosave (waits until user finishes typing)
   const triggerAutosave = (
-    updatedCore: CoreIntakeAnswers,
+    updatedCore?: CoreIntakeAnswers,
     updatedFollowUps?: Record<string, any>,
     stageOverride?: PhaseType
   ) => {
@@ -131,21 +151,23 @@ export const AdaptiveOnboardingFlow: React.FC = () => {
     }
     debounceTimerRef.current = setTimeout(() => {
       saveMutation.mutate({
-        core_answers: updatedCore,
-        follow_up_answers: updatedFollowUps || followUpAnswers,
+        core_answers: updatedCore ?? latestCoreRef.current,
+        follow_up_answers: updatedFollowUps ?? latestFollowUpRef.current,
         stage_override: stageOverride,
       });
-    }, 450);
+    }, 800);
   };
 
   const handleCoreChange = <K extends keyof CoreIntakeAnswers>(field: K, value: CoreIntakeAnswers[K]) => {
-    const updated = { ...coreAnswers, [field]: value };
+    const updated = { ...latestCoreRef.current, [field]: value };
     setCoreAnswers(updated);
-    triggerAutosave(updated);
+    triggerAutosave(updated, latestFollowUpRef.current);
   };
 
   const handlePhaseChange = (phase: PhaseType) => {
-    handleCoreChange('stage', phase);
+    const updated = { ...latestCoreRef.current, stage: phase };
+    setCoreAnswers(updated);
+    triggerAutosave(updated, latestFollowUpRef.current, phase);
     addToast({
       type: 'info',
       title: 'Target Phase Switched',
@@ -154,9 +176,9 @@ export const AdaptiveOnboardingFlow: React.FC = () => {
   };
 
   const handleFollowUpChange = (qId: string, value: string) => {
-    const updated = { ...followUpAnswers, [qId]: value };
+    const updated = { ...latestFollowUpRef.current, [qId]: value };
     setFollowUpAnswers(updated);
-    triggerAutosave(coreAnswers, updated);
+    triggerAutosave(latestCoreRef.current, updated);
   };
 
   // Follow-up generation mutation
@@ -201,8 +223,12 @@ export const AdaptiveOnboardingFlow: React.FC = () => {
   });
 
   const handleReset = () => {
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
     const newId = `onboard_${Date.now()}`;
     localStorage.setItem(STORAGE_KEY, newId);
+    loadedSessionIdRef.current = null;
     setSessionId(newId);
     setCoreAnswers({
       stage: 'foundation',

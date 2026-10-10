@@ -1,81 +1,124 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { api } from '../../api/client';
 import { useAppStore } from '../../store/useAppStore';
 import { BusinessProfileForm } from './BusinessProfileForm';
 import { KnowledgeBaseUploader } from './KnowledgeBaseUploader';
-import { SampleBusinessSelector } from './SampleBusinessSelector';
 import { AdaptiveOnboardingFlow } from './AdaptiveOnboardingFlow';
+import { GrowthXOnboardingFlow } from './GrowthXOnboardingFlow';
 import { Tabs } from '../../components/ui/Tabs';
 import { Skeleton } from '../../components/ui/Skeleton';
 import { Button } from '../../components/ui/Button';
 import { BusinessProfile } from '../../api/types';
-import { Sparkles, AlertTriangle, Play, ArrowRight, ShieldCheck, PlusCircle } from 'lucide-react';
+import {
+  Sparkles,
+  AlertTriangle,
+  Building,
+  PlusCircle,
+  Check,
+  RotateCcw,
+  Sliders,
+  FileText,
+  ShieldCheck,
+} from 'lucide-react';
 
 const EMPTY_PROFILE: BusinessProfile = {
   id: '',
   name: '',
-  industry: 'B2B Software',
-  offerings: [],
-  ideal_customer: '',
+  industry: 'Software / SaaS / AI',
+  offerings: ['Autonomous workflow automation for B2B operations'],
+  ideal_customer: 'B2B enterprise technology leaders and operations teams',
   tone: 'Consultative, precise, metrics-driven',
-  channels: ['email'],
+  channels: ['email', 'linkedin'],
   anti_spam: {
     max_contacts_per_week: 3,
     quiet_hours: '20:00 - 08:00',
     opt_out_list: [],
   },
-  enabled_agents: ['atlas', 'scout', 'quill', 'veritas', 'warden', 'courier'],
+  enabled_agents: ['atlas', 'scout', 'quill', 'veritas', 'warden', 'courier', 'apex'],
   documents: [],
 };
 
-export const OnboardingPage: React.FC = () => {
+interface OnboardingPageProps {
+  embed?: boolean;
+}
+
+export const OnboardingPage: React.FC<OnboardingPageProps> = ({ embed = false }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const queryClient = useQueryClient();
   const { activeBusinessId, setActiveBusinessId, setActiveRunId, addToast } = useAppStore();
-  const [activeViewTab, setActiveViewTab] = useState<'adaptive' | 'legacy'>('adaptive');
-  const isDevTools = import.meta.env.VITE_DEV_TOOLS === '1';
+
+  const searchParams = new URLSearchParams(location.search);
+  const modeParam = searchParams.get('mode');
 
   const { data: businesses = [], isLoading } = useQuery({
     queryKey: ['businesses'],
     queryFn: () => api.listBusinesses(),
   });
 
+  // Keep activeBusinessId synchronized with loaded businesses
+  useEffect(() => {
+    if (!activeBusinessId && businesses.length > 0) {
+      setActiveBusinessId(businesses[0].id);
+    }
+  }, [businesses, activeBusinessId, setActiveBusinessId]);
+
+  const [isCreatingNew, setIsCreatingNew] = useState<boolean>(modeParam === 'new');
+  const [activeViewTab, setActiveViewTab] = useState<'profile' | 'intake' | 'readiness'>(
+    modeParam === 'intake' ? 'intake' : 'profile'
+  );
+
   const activeBusiness =
     businesses.find((b) => b.id === activeBusinessId) || businesses[0] || null;
 
-  const currentProfile = activeBusiness || EMPTY_PROFILE;
+  const currentProfile = isCreatingNew ? EMPTY_PROFILE : (activeBusiness || EMPTY_PROFILE);
 
   const switchMutation = useMutation({
     mutationFn: (id: string) => api.switchBusiness(id),
     onSuccess: (biz) => {
       setActiveBusinessId(biz.id);
+      setIsCreatingNew(false);
       queryClient.invalidateQueries();
       addToast({
         type: 'info',
-        title: `Switched to ${biz.name}`,
-        message: `Loaded ${biz.industry} governance model.`,
+        title: `Switched context to ${biz.name}`,
+        message: `Loaded ${biz.industry} knowledge repository and ICP.`,
       });
     },
   });
 
   const saveMutation = useMutation({
     mutationFn: async (updated: BusinessProfile) => {
-      if (updated.id) {
+      if (updated.id && !isCreatingNew) {
         return api.updateBusinessProfile(updated);
       } else {
-        return api.createBusiness(updated);
+        const payload = { ...updated };
+        if (isCreatingNew) {
+          delete (payload as any).id;
+        }
+        return api.createBusiness(payload);
       }
     },
     onSuccess: (savedBiz) => {
       setActiveBusinessId(savedBiz.id);
-      queryClient.invalidateQueries();
+      setIsCreatingNew(false);
+      queryClient.invalidateQueries({ queryKey: ['businesses'] });
+      queryClient.invalidateQueries({ queryKey: ['orchestrator-overview'] });
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
       addToast({
         type: 'success',
-        title: 'Business Saved',
-        message: `${savedBiz.name} profile successfully saved.`,
+        title: 'Business Profile Saved',
+        message: `${savedBiz.name} company & ICP profile successfully synchronized.`,
+      });
+    },
+    onError: (err: any) => {
+      addToast({
+        type: 'danger',
+        title: 'Save Failed',
+        message: err.message || 'Could not save business profile.',
       });
     },
   });
@@ -94,92 +137,139 @@ export const OnboardingPage: React.FC = () => {
 
   return (
     <motion.div
-      key={activeBusiness?.id || 'new'}
-      initial={{ opacity: 0, y: 12 }}
+      key={isCreatingNew ? 'creating_new' : (activeBusiness?.id || 'empty')}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="p-6 md:p-8 max-w-[1280px] mx-auto space-y-8"
+      transition={{ duration: 0.4 }}
+      className={embed ? 'space-y-6' : 'p-4 sm:p-6 md:p-8 max-w-[1280px] mx-auto space-y-6'}
     >
-      {/* Clean Minimalist Hero */}
-      <div className="glass-panel border border-accent/25 rounded-2xl p-7 sm:p-9 relative overflow-hidden shadow-2xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-        <div className="absolute top-0 right-0 w-96 h-40 bg-accent/5 rounded-full filter blur-3xl pointer-events-none" />
-        <div className="space-y-3 relative z-10 max-w-2xl">
+      {/* Hero Header */}
+      <div className="panel p-6 sm:p-8 bg-[var(--paper)] border-[var(--ink)] shadow-hard flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+        <div className="space-y-2 max-w-2xl">
           <div className="flex items-center gap-2">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-accent bg-accent-soft px-3 py-1 rounded-full border border-accent/30 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-accent" />
-              Zero-Hallucination AI Outreach
+            <span className="eyebrow flex items-center gap-1.5 text-[var(--ink-deep)] font-bold">
+              <Sparkles className="w-3.5 h-3.5 text-[var(--accent)]" />
+              Company Governance & Ground Truth
             </span>
           </div>
 
-          <h1 className="font-serif text-3xl sm:text-4xl text-text font-light tracking-tight">
-            {activeBusiness ? `Configure ${activeBusiness.name}` : 'Describe Your Business'}
+          <h1 className="h1 text-2xl sm:text-3xl font-extrabold text-[var(--ink)]">
+            {isCreatingNew
+              ? 'Create New Business & ICP'
+              : activeBusiness
+              ? `${activeBusiness.name} — Company & ICP`
+              : 'Define Your Business Profile'}
           </h1>
 
-          <p className="text-sm text-text-muted leading-relaxed">
-            Verity audits every outbound sentence against your uploaded company documents before anything leaves the building.
-            Complete the questions below or upload documentation to establish ground-truth facts.
+          <p className="text-xs sm:text-sm text-[var(--ink-2)]">
+            Verity audits every outreach campaign against your verified ICP and uploaded company documents.
+            Define your value proposition, customer boundaries, and brand voice below.
           </p>
         </div>
 
-        {isDevTools && (
-          <div className="relative z-10 flex flex-col gap-2">
-            <span className="text-[10px] font-mono uppercase text-warning">Developer Tools</span>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => navigate('/run/run_flawed_demo/review')}
+        {/* Quick Organization Bar & Create New Button */}
+        <div className="flex flex-wrap items-center gap-2">
+          {isCreatingNew ? (
+            <button
+              type="button"
+              onClick={() => setIsCreatingNew(false)}
+              className="btn small flex items-center gap-1.5"
             >
-              Demo: Test Review Desk
-            </Button>
-          </div>
-        )}
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Cancel (Back to {activeBusiness?.name || 'Overview'})</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => {
+                setIsCreatingNew(true);
+                setActiveViewTab('profile');
+              }}
+              className="btn solid small flex items-center gap-1.5"
+            >
+              <PlusCircle className="w-3.5 h-3.5 text-[var(--accent)]" />
+              <span>Create New Business</span>
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* View Switcher: Adaptive Intake vs Legacy Governance */}
-      <div className="flex items-center justify-between border-b border-border pb-4">
+      {/* Available Business Context Selector Chips */}
+      {businesses.length > 0 && !isCreatingNew && (
+        <div className="p-4 bg-[var(--paper)] border border-[var(--ink)] shadow-hard space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="eyebrow text-xs">Switch Active Business:</span>
+            <span className="text-xs font-mono text-[var(--ink-2)]">
+              {businesses.length} {businesses.length === 1 ? 'organization' : 'organizations'} configured
+            </span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 pt-1">
+            {businesses.map((biz) => {
+              const isSelected = biz.id === activeBusiness?.id;
+              return (
+                <button
+                  key={biz.id}
+                  type="button"
+                  onClick={() => switchMutation.mutate(biz.id)}
+                  className={`px-3 py-1.5 text-xs rounded border transition-all flex items-center gap-2 cursor-pointer ${
+                    isSelected
+                      ? 'bg-[var(--ink)] text-[var(--bg)] border-[var(--ink)] font-bold shadow-sm'
+                      : 'bg-[var(--paper)] text-[var(--ink)] border-[var(--line)] hover:border-[var(--ink)]'
+                  }`}
+                >
+                  <Building className="w-3.5 h-3.5" />
+                  <span>{biz.name}</span>
+                  <span className="text-[10px] opacity-75 font-mono">({biz.industry})</span>
+                  {isSelected && <Check className="w-3 h-3 text-[var(--accent)] ml-1" />}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* View Mode Tabs: Profile vs Step-by-Step AI Intake vs Readiness Audit */}
+      <div className="flex items-center justify-between border-b border-[var(--ink)] pb-3">
         <Tabs
           options={[
-            { id: 'adaptive', label: 'Adaptive 8-Question Intake & Readiness' },
-            { id: 'legacy', label: 'Manual Governance & Documents' },
+            { id: 'profile', label: 'Company & ICP Profile' },
+            { id: 'intake', label: 'Step-by-Step AI Intake Wizard' },
+            { id: 'readiness', label: 'Readiness & Gap Assessment' },
           ]}
           activeTab={activeViewTab}
-          onChange={(tab) => setActiveViewTab(tab as 'adaptive' | 'legacy')}
+          onChange={(tab) => {
+            setActiveViewTab(tab as 'profile' | 'intake' | 'readiness');
+          }}
         />
       </div>
 
-      {activeViewTab === 'adaptive' ? (
-        <AdaptiveOnboardingFlow />
-      ) : (
-        <>
-          {/* Sample Business Selector: ONLY if dev tools enabled and businesses exist */}
-          {isDevTools && businesses.length > 0 && (
-            <div className="p-3 rounded bg-warning/10 border border-warning/30 space-y-2">
-              <span className="text-xs font-mono font-semibold text-warning">Demo data - for development only:</span>
-              <SampleBusinessSelector
-                businesses={businesses}
-                activeBusinessId={activeBusiness?.id || ''}
-                onSelect={(id) => switchMutation.mutate(id)}
-              />
-            </div>
-          )}
-
-          {/* Split Layout: Business Profile Form (Left 6 Cols) & Knowledge Base (Right 6 Cols) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div className="lg:col-span-6">
-              <BusinessProfileForm
-                initialProfile={currentProfile}
-                onSave={(updated) => saveMutation.mutate(updated)}
-                isSaving={saveMutation.isPending}
-              />
-            </div>
-
-            <div className="lg:col-span-6">
-              <KnowledgeBaseUploader documents={currentProfile.documents} />
-            </div>
+      {/* TAB CONTENT */}
+      {activeViewTab === 'profile' ? (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Left 6 Cols: Direct Company & ICP Profile Form */}
+          <div className="lg:col-span-6">
+            <BusinessProfileForm
+              key={currentProfile.id || 'new_form'}
+              initialProfile={currentProfile}
+              onSave={(updated) => saveMutation.mutate(updated)}
+              isSaving={saveMutation.isPending}
+            />
           </div>
-        </>
+
+          {/* Right 6 Cols: Knowledge Base Ground-Truth Documents */}
+          <div className="lg:col-span-6">
+            <KnowledgeBaseUploader documents={currentProfile.documents} />
+          </div>
+        </div>
+      ) : activeViewTab === 'intake' ? (
+        <GrowthXOnboardingFlow />
+      ) : (
+        <AdaptiveOnboardingFlow />
       )}
     </motion.div>
   );
 };
+
+export default OnboardingPage;

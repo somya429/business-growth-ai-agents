@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
 import { api } from '../../api/client';
@@ -12,6 +12,8 @@ import { ApprovalDialog } from './ApprovalDialog';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 import { Skeleton } from '../../components/ui/Skeleton';
+import { OnboardingPage } from '../onboarding/OnboardingPage';
+import { ResultsPage } from '../results/ResultsPage';
 import {
   Check,
   CheckCircle2,
@@ -24,15 +26,37 @@ import {
   Sparkles,
   ArrowLeft,
   AlertTriangle,
+  Sliders,
+  TrendingUp,
 } from 'lucide-react';
 
 export const ReviewDeskPage: React.FC = () => {
   const { runId: routeRunId } = useParams<{ runId: string }>();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const queryClient = useQueryClient();
-  const { activeBusinessId, activeRunId, addToast } = useAppStore();
+  const { activeBusinessId, activeRunId, setActiveRunId, addToast } = useAppStore();
 
-  const currentRunId = routeRunId || activeRunId || null;
+  const { data: runsList } = useQuery({
+    queryKey: ['runs', activeBusinessId],
+    queryFn: () => api.listRuns(activeBusinessId || undefined),
+    enabled: !routeRunId && !activeRunId,
+  });
+
+  const effectiveRunId = routeRunId || activeRunId || (runsList && runsList.length > 0 ? runsList[0].run_id : null);
+  const currentRunId = effectiveRunId;
+
+  useEffect(() => {
+    if (!activeRunId && runsList && runsList.length > 0) {
+      setActiveRunId(runsList[0].run_id);
+    }
+  }, [activeRunId, runsList, setActiveRunId]);
+
+  const activeSubTab = (searchParams.get('tab') as 'review' | 'company' | 'results') || 'review';
+
+  const handleSelectSubTab = (tab: 'review' | 'company' | 'results') => {
+    setSearchParams({ tab });
+  };
 
   // Modals state
   const [isEditorOpen, setIsEditorOpen] = useState(false);
@@ -122,49 +146,95 @@ export const ReviewDeskPage: React.FC = () => {
     },
   });
 
-  if (isLoading) {
-    return (
-      <div className="p-8 max-w-[1240px] mx-auto space-y-6">
-        <Skeleton className="h-10 w-72" />
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <Skeleton className="h-[600px] lg:col-span-7" />
-          <Skeleton className="h-[600px] lg:col-span-5" />
-        </div>
-      </div>
-    );
-  }
-
-  if (!currentRunId || !payload || !payload.draft) {
-    return (
-      <div className="p-6 md:p-12 max-w-[800px] mx-auto text-center space-y-6 min-h-[60vh] flex flex-col items-center justify-center">
-        <div className="w-16 h-16 rounded-2xl bg-surface border border-border flex items-center justify-center mx-auto text-accent shadow-sm">
-          <ShieldCheck className="w-8 h-8" />
-        </div>
-        <div className="space-y-2">
-          <h1 className="text-2xl sm:text-3xl font-serif text-text font-light">
-            No drafts awaiting review
-          </h1>
-          <p className="text-sm text-text-muted max-w-md mx-auto leading-relaxed">
-            Veritas and Quill place outreach drafts here when human sign-off is required before sending.
-          </p>
-        </div>
-        <div className="pt-2">
-          <Button variant="primary" onClick={() => navigate('/orchestrator')}>
-            Go to Mission Control
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
-  const { draft, trust_report: trustReport } = payload;
+  const draft = payload?.draft;
+  const trustReport = payload?.trust_report;
   const flags = trustReport?.flags || [];
   const openFlags = flags.filter((f) => f.status === 'open');
   const canApprove = openFlags.length === 0;
 
   return (
     <div className="p-6 md:p-8 max-w-[1240px] mx-auto space-y-6 pb-28">
-      {/* Success Animation Overlay */}
+      {/* Sub-Navigation Pill Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--ink)] pb-4">
+        <div className="seg" role="tablist" aria-label="Governance sub-views">
+          <button
+            type="button"
+            role="tab"
+            aria-pressed={activeSubTab === 'review'}
+            onClick={() => handleSelectSubTab('review')}
+            className="flex items-center gap-2 text-xs"
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-[var(--verified)]" />
+            <span>Review & Approvals</span>
+          </button>
+
+          <button
+            type="button"
+            role="tab"
+            aria-pressed={activeSubTab === 'company'}
+            onClick={() => handleSelectSubTab('company')}
+            className="flex items-center gap-2 text-xs"
+          >
+            <Sliders className="w-3.5 h-3.5 text-[var(--accent)]" />
+            <span>Company & ICP</span>
+          </button>
+
+          <button
+            type="button"
+            role="tab"
+            aria-pressed={activeSubTab === 'results'}
+            onClick={() => handleSelectSubTab('results')}
+            className="flex items-center gap-2 text-xs"
+          >
+            <TrendingUp className="w-3.5 h-3.5 text-[var(--ink-deep)]" />
+            <span>Campaign Outcomes</span>
+          </button>
+        </div>
+
+        <div className="text-xs text-[var(--ink-2)] font-mono flex items-center gap-2">
+          <span className="dot scale-75" />
+          <span>Governance Desk: <strong className="text-[var(--ink-deep)]">{businessName}</strong></span>
+        </div>
+      </div>
+
+      {/* Sub-View Content */}
+      {activeSubTab === 'company' && <OnboardingPage embed />}
+      {activeSubTab === 'results' && <ResultsPage embed />}
+      {activeSubTab === 'review' && (
+        <>
+          {isLoading ? (
+            <div className="space-y-6">
+              <Skeleton className="h-10 w-72" />
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <Skeleton className="h-[600px] lg:col-span-7" />
+                <Skeleton className="h-[600px] lg:col-span-5" />
+              </div>
+            </div>
+          ) : !currentRunId || !payload || !payload.draft ? (
+            <div className="p-6 md:p-12 max-w-[800px] mx-auto text-center space-y-6 min-h-[50vh] flex flex-col items-center justify-center">
+              <div className="w-16 h-16 rounded-2xl bg-surface border border-border flex items-center justify-center mx-auto text-accent shadow-sm">
+                <ShieldCheck className="w-8 h-8" />
+              </div>
+              <div className="space-y-2">
+                <h1 className="text-2xl sm:text-3xl font-serif text-text font-light">
+                  No drafts awaiting review
+                </h1>
+                <p className="text-sm text-text-muted max-w-md mx-auto leading-relaxed">
+                  Veritas and Quill place outreach drafts here when human sign-off is required before sending.
+                </p>
+              </div>
+              <div className="flex items-center gap-3 pt-2">
+                <Button variant="primary" onClick={() => navigate('/orchestrator')}>
+                  Go to Mission Control
+                </Button>
+                <Button variant="secondary" onClick={() => navigate('/run/run_flawed_demo/review')}>
+                  Load Demo Review (Flagged Claims)
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* Success Animation Overlay */}
       <AnimatePresence>
         {showApprovalSuccess && (
           <motion.div
@@ -371,6 +441,10 @@ export const ReviewDeskPage: React.FC = () => {
         recipientEmail="elena.rostova@starlightfg.com"
         channel={draft?.channel?.toUpperCase() || 'EMAIL'}
       />
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 };

@@ -36,6 +36,7 @@ export interface AgentExecutionInfo {
 }
 
 export interface PipelineRunResult {
+  run_id?: string;
   company_name: string;
   research_data: {
     industry?: string;
@@ -82,7 +83,23 @@ export interface EmailDispatchResult {
   error?: string;
 }
 
-const API_BASE = 'http://localhost:8000';
+function getApiBaseUrl(): string {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (envUrl && envUrl.trim() !== '') {
+    if (
+      typeof window !== 'undefined' &&
+      window.location.hostname !== 'localhost' &&
+      window.location.hostname !== '127.0.0.1' &&
+      (envUrl.includes('localhost') || envUrl.includes('127.0.0.1'))
+    ) {
+      return '';
+    }
+    return envUrl;
+  }
+  return '';
+}
+
+const API_BASE = getApiBaseUrl();
 
 export async function runAgentPipeline(companyName: string): Promise<PipelineRunResult> {
   try {
@@ -95,11 +112,16 @@ export async function runAgentPipeline(companyName: string): Promise<PipelineRun
     if (res.ok) {
       return await res.json();
     }
-  } catch {
-    // If backend isn't reachable, simulate full realistic multi-agent execution
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || `Pipeline execution failed with status ${res.status}`);
+  } catch (err: any) {
+    if (err.message && err.message.includes('Pipeline execution failed')) {
+      throw err;
+    }
+    console.warn('Backend offline or unreachable, using fallback simulation:', err);
   }
 
-  // Realistic fallback simulation with the same timing & agent outputs
+  // Fallback only if offline test environment
   await new Promise((r) => setTimeout(r, 1200));
 
   return {
@@ -135,18 +157,18 @@ export async function runAgentPipeline(companyName: string): Promise<PipelineRun
         step_number: 1,
         channel: 'email',
         subject: `Infrastructure efficiency & audit assurance (${companyName})`,
-        body: `Hi Elena,\n\nI noticed ${companyName}'s recent multi-cloud expansion. Reconciling telemetry without compromising audit posture is critical as your engineering footprint scales.\n\nOur platform provides verified zero-hallucination compliance assurance and standard SOC 2 Type II audit telemetry.\n\nWould you have 15 minutes this Thursday at 2 PM EDT to inspect the benchmarks?\n\nBest,\nVerity Autonomous Outreach Team`
+        body: `Hi Alex,\n\nI noticed ${companyName}'s recent multi-cloud expansion. Reconciling telemetry without compromising audit posture is critical as your engineering footprint scales.\n\nOur platform provides verified zero-hallucination compliance assurance and standard SOC 2 Type II audit telemetry.\n\nWould you have 15 minutes this Thursday at 2 PM EDT to inspect the benchmarks?\n\nBest,\nVerity Autonomous Outreach Team`
       },
       {
         step_number: 2,
         channel: 'linkedin',
-        body: `Hi Elena - congratulations on ${companyName}'s recent infrastructure expansion! Sent an email regarding telemetry audit assurance.`
+        body: `Hi Alex - congratulations on ${companyName}'s recent infrastructure expansion! Sent an email regarding telemetry audit assurance.`
       },
       {
         step_number: 3,
         channel: 'email',
         subject: `Quick follow-up: Telemetry benchmarks for ${companyName}`,
-        body: `Elena, following up on our note from Tuesday. We helped similar engineering organizations streamline compliance telemetry by 4x. Happy to share our technical spec sheet whenever helpful.`
+        body: `Alex, following up on our note from Tuesday. We helped similar engineering organizations streamline compliance telemetry by 4x. Happy to share our technical spec sheet whenever helpful.`
       }
     ],
     outreach_evaluation: {
@@ -180,6 +202,7 @@ export async function dispatchApprovedEmail(payload: {
   subject: string;
   body: string;
   company_name: string;
+  run_id?: string;
 }): Promise<EmailDispatchResult> {
   try {
     const res = await fetch(`${API_BASE}/api/email/dispatch`, {
@@ -222,3 +245,125 @@ export async function fetchCrmRecords(): Promise<any[]> {
   }
   return [];
 }
+
+export interface ConversationMessage {
+  id: string;
+  sender: 'agent' | 'client';
+  role: string;
+  subject?: string;
+  body: string;
+  timestamp: string;
+  status: 'sent' | 'received' | 'drafted';
+  analysis?: any;
+}
+
+export interface ProcessReplyResult {
+  status: 'success' | 'failed';
+  reply_analysis: {
+    intent: string;
+    next_action: string;
+    escalate_to_human: boolean;
+    reason: string;
+    draft_reply?: string;
+  };
+  conversation_thread: ConversationMessage[];
+  error?: string;
+}
+
+export async function processClientReply(payload: {
+  run_id?: string;
+  client_email: string;
+  client_reply: string;
+  prior_subject?: string;
+  prior_body?: string;
+  company_name?: string;
+}): Promise<ProcessReplyResult> {
+  try {
+    const res = await fetch(`${API_BASE}/api/email/process-reply`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.ok) {
+      return await res.json();
+    }
+    const err = await res.json().catch(() => ({}));
+    return {
+      status: 'failed',
+      reply_analysis: {
+        intent: 'unclear',
+        next_action: 'human_review',
+        escalate_to_human: true,
+        reason: err.detail || 'Server error',
+      },
+      conversation_thread: [],
+      error: err.detail || `Server error (${res.status})`,
+    };
+  } catch (err: any) {
+    return {
+      status: 'failed',
+      reply_analysis: {
+        intent: 'unclear',
+        next_action: 'human_review',
+        escalate_to_human: true,
+        reason: err?.message || 'Connection failure',
+      },
+      conversation_thread: [],
+      error: err?.message || 'Failed to connect to reply processing endpoint',
+    };
+  }
+}
+
+export async function fetchLatestPipelineRun(): Promise<PipelineRunResult | null> {
+  try {
+    const res = await fetch(`${API_BASE}/api/pipeline/latest`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.status === 'found' && data.result) {
+        return data.result;
+      }
+    }
+  } catch (err) {
+    // ignore
+  }
+  return null;
+}
+
+export async function fetchEmailOutbox(): Promise<any[]> {
+  try {
+    const res = await fetch(`${API_BASE}/api/email/outbox`);
+    if (res.ok) {
+      const data = await res.json();
+      return data.emails || [];
+    }
+  } catch (err) {
+    // ignore
+  }
+  return [];
+}
+
+export async function syncInboxReplies(clientEmail: string): Promise<{
+  status: 'found' | 'no_replies' | 'not_configured' | 'error';
+  from?: string;
+  subject?: string;
+  body?: string;
+  message?: string;
+}> {
+  try {
+    const res = await fetch(`${API_BASE}/api/email/sync-inbox`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ client_email: clientEmail }),
+    });
+    if (res.ok) {
+      return await res.json();
+    }
+    return { status: 'error', message: `Server error (${res.status})` };
+  } catch (err: any) {
+    return { status: 'error', message: err?.message || 'Failed to connect to inbox server' };
+  }
+}
+
+
+

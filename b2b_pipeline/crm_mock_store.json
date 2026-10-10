@@ -1,1 +1,1653 @@
-[]
+[
+  {
+    "company_name": "Stripe",
+    "industry": "Financial Infrastructure / Payment Processing",
+    "summary": "Stripe is a high-growth B2B payment infrastructure platform with a $159 billion valuation that is aggressively expanding through M&A into adjacent enterprise tech. Its capital strength and integration appetite create a prime window for forming strategic technology partnerships.",
+    "key_personas": [
+      {
+        "role": "Chief Technology Officer",
+        "persona_type": "Technical Decision Maker",
+        "reason": "CTO owns technology strategy and platform robustness, making him key for enterprise tech adoption.",
+        "relevance_score": 92,
+        "evidence": [
+          "David Singleton is Stripe's CTO, overseeing technology strategy and robustness."
+        ]
+      },
+      {
+        "role": "Chief Financial Officer",
+        "persona_type": "Economic Buyer",
+        "reason": "CFO controls budget and approves major enterprise spending, making him the primary economic buyer.",
+        "relevance_score": 90,
+        "evidence": [
+          "Steffan Tomlinson serves as Stripe's Chief Financial Officer."
+        ]
+      }
+    ],
+    "why_now_analysis": {
+      "score": 78,
+      "summary": "Stripe's recent wave of M&A activity (Clerky, OpenRouter, and Archive acquisitions in Aug\u2013Sep 2026) creates an immediate window to integrate complementary solutions into their expanding enterprise platform, while their $140bn valuation confirms strong capital capacity for new partnerships. However, the integration friction from rapid acquisitions and their high internal build-out R",
+      "signals": [
+        {
+          "signal_type": "Funding",
+          "title": "Stripe Valued at $140bn in New Tender Offer",
+          "description": "Reported Feb 10, 2026, a new tender offer values Stripe at $140 billion, extending its upward valuation trajectory.",
+          "date": "2026-02-10",
+          "strength": 9,
+          "confidence": 0.95,
+          "source_url": "https://www.siliconrepublic.com/business/stripe-tender-140bn-valuation-fintech-axios-report-ireland",
+          "source_name": "Silicon Republic",
+          "business_impact": "Confirms Stripe's high-valuation growth trajectory, signaling strong capital capacity for new partnerships and enterprise investments."
+        },
+        {
+          "signal_type": "Expansion",
+          "title": "Stripe Invests in Archive, Expands M&A Activity",
+          "description": "Stripe invested in Archive (Sep 2, 2026), following acquisitions of Clerky (Sep 1) and OpenRouter (Aug 17, 2026).",
+          "date": "2026-09-02",
+          "strength": 8,
+          "confidence": 0.85,
+          "source_url": "https://tracxn.com/d/companies/stripe/__uahG_IGnVgsUsOG-f8otYHLkOkliWg7YFhJ5ZkNIkpI",
+          "source_name": "Tracxn",
+          "business_impact": "Signals Stripe's aggressive M&A strategy and expansion into adjacent enterprise tech, indicating appetite for new integrations."
+        }
+      ]
+    },
+    "outreach_sequence": [
+      {
+        "step_number": 1,
+        "channel": "email",
+        "subject": "Integration bandwidth post-Archive",
+        "body": "David, congrats on the $140bn tender mark. With Clerky, OpenRouter, and Archive landing in Aug\u2013Sep, integration bandwidth is likely tight. We help enterprise platforms stitch new acquisitions into existing infra without slowing roadmaps. Worth a 15-min chat this week?"
+      },
+      {
+        "step_number": 2,
+        "channel": "linkedin",
+        "subject": null,
+        "body": "David, big fan of Stripe's move into enterprise infra. With the Archive and OpenRouter acquisitions, curious how you're handling integration load. Would love to connect and share a quick take."
+      },
+      {
+        "step_number": 3,
+        "channel": "email",
+        "subject": "Quick re: Archive integration",
+        "body": "David, circling back. If integrating Archive and OpenRouter into Stripe's core stack is a current priority, I can send a one-page brief on how we've cut integration cycles for similar platforms. No call needed\u2014just say the word."
+      }
+    ],
+    "business_signals": [
+      {
+        "signal_type": "Funding",
+        "title": "Stripe Valued at $140bn in New Tender Offer",
+        "description": "Reported Feb 10, 2026, a new tender offer values Stripe at $140 billion, extending its upward valuation trajectory.",
+        "date": "2026-02-10",
+        "strength": 9,
+        "confidence": 0.95,
+        "source_url": "https://www.siliconrepublic.com/business/stripe-tender-140bn-valuation-fintech-axios-report-ireland",
+        "source_name": "Silicon Republic",
+        "business_impact": "Confirms Stripe's high-valuation growth trajectory, signaling strong capital capacity for new partnerships and enterprise investments."
+      },
+      {
+        "signal_type": "Expansion",
+        "title": "Stripe Invests in Archive, Expands M&A Activity",
+        "description": "Stripe invested in Archive (Sep 2, 2026), following acquisitions of Clerky (Sep 1) and OpenRouter (Aug 17, 2026).",
+        "date": "2026-09-02",
+        "strength": 8,
+        "confidence": 0.85,
+        "source_url": "https://tracxn.com/d/companies/stripe/__uahG_IGnVgsUsOG-f8otYHLkOkliWg7YFhJ5ZkNIkpI",
+        "source_name": "Tracxn",
+        "business_impact": "Signals Stripe's aggressive M&A strategy and expansion into adjacent enterprise tech, indicating appetite for new integrations."
+      }
+    ],
+    "opportunity_score": 78,
+    "agent_executions": {
+      "research_account": {
+        "agent_name": "research_account",
+        "status": "completed",
+        "started_at": "2026-10-09T15:07:38.748448+00:00",
+        "completed_at": "2026-10-09T15:07:46.624906+00:00",
+        "duration_ms": 7876.451899996027,
+        "confidence": 0.96
+      },
+      "detect_signals": {
+        "agent_name": "detect_signals",
+        "status": "completed",
+        "started_at": "2026-10-09T15:07:46.626493+00:00",
+        "completed_at": "2026-10-09T15:07:52.963981+00:00",
+        "duration_ms": 6337.478299974464,
+        "confidence": 0.94
+      },
+      "detect_personas": {
+        "agent_name": "detect_personas",
+        "status": "completed",
+        "started_at": "2026-10-09T15:07:52.965405+00:00",
+        "completed_at": "2026-10-09T15:07:59.709970+00:00",
+        "duration_ms": 6744.558500009589,
+        "confidence": 0.92
+      },
+      "synthesize_intelligence": {
+        "agent_name": "synthesize_intelligence",
+        "status": "completed",
+        "started_at": "2026-10-09T15:07:59.711636+00:00",
+        "completed_at": "2026-10-09T15:08:03.300825+00:00",
+        "duration_ms": 3589.181399962399,
+        "confidence": 0.95
+      },
+      "detect_why_now": {
+        "agent_name": "detect_why_now",
+        "status": "completed",
+        "started_at": "2026-10-09T15:08:03.302550+00:00",
+        "completed_at": "2026-10-09T15:08:07.496766+00:00",
+        "duration_ms": 4194.207799970172,
+        "confidence": 0.92
+      },
+      "generate_outreach": {
+        "agent_name": "generate_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T15:08:37.852291+00:00",
+        "completed_at": "2026-10-09T15:09:05.775202+00:00",
+        "duration_ms": 27922.90689999936,
+        "confidence": 0.93
+      },
+      "critique_outreach": {
+        "agent_name": "critique_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T15:09:05.776529+00:00",
+        "completed_at": "2026-10-09T15:09:09.284886+00:00",
+        "duration_ms": 3508.3490000106394,
+        "confidence": 0.96
+      },
+      "human_approval": {
+        "agent_name": "human_approval",
+        "status": "completed",
+        "started_at": "2026-10-09T15:09:09.286647+00:00",
+        "completed_at": "2026-10-09T15:09:09.587667+00:00",
+        "duration_ms": 301.0072999750264,
+        "confidence": 1.0
+      }
+    },
+    "id": "crm_f7bb29352d",
+    "synced_at": "2026-10-09T15:09:09.890961+00:00"
+  },
+  {
+    "company_name": "Apple",
+    "industry": "Consumer Electronics & Technology",
+    "summary": "Apple operates a tightly integrated hardware-software ecosystem generating massive revenue, currently accelerating growth through a $500B U.S. AI infrastructure investment and rapid enterprise expansion. The core opportunity lies in supporting this unprecedented domestic buildout and large-scale enterprise hardware deployments.",
+    "key_personas": [
+      {
+        "role": "Chief Operating Officer",
+        "persona_type": "Economic Buyer",
+        "reason": "As Chief Operating Officer, Sabih Khan controls operational and enterprise technology spending across Apple's worldwide business.",
+        "relevance_score": 95,
+        "evidence": [
+          "Sabih Khan now directs worldwide operations, Kevan Parekh leads finance."
+        ]
+      },
+      {
+        "role": "Chief Hardware Officer",
+        "persona_type": "Technical Decision Maker",
+        "reason": "As Chief Hardware Officer, Srouji directs technology and infrastructure choices in Apple's unified hardware division.",
+        "relevance_score": 88,
+        "evidence": [
+          "Johny Srouji has taken responsibility for Apple's consolidated hardware organization."
+        ]
+      }
+    ],
+    "why_now_analysis": {
+      "score": 92,
+      "summary": "Apple's $500B U.S. investment commitment\u2014backed by 20,000 new hires and a Houston AI server facility coming online by 2026\u2014creates an unprecedented, time-bound window for enterprise and supplier partnerships. This urgency is amplified by active large-scale enterprise hardware deployments (e.g., Marsh's iPhone 17 refresh), signaling immediate demand for solutions that can accelerate",
+      "signals": [
+        {
+          "signal_type": "Expansion",
+          "title": "Apple Expands Enterprise Footprint with Marsh Deployment",
+          "description": "Marsh, a leading professional services firm, deployed a large-scale refresh of corporate devices to iPhone 17 and adopted Mac for internal AI development in Q2 fiscal 2026.",
+          "date": null,
+          "strength": 9,
+          "confidence": 0.9,
+          "source_url": "https://finance.yahoo.com/technology/articles/apples-expanding-enterprise-footprint-boost-122200602.html",
+          "source_name": "Yahoo Finance",
+          "business_impact": "Signals strong demand for secure enterprise hardware; ideal for B2B partnership outreach."
+        },
+        {
+          "signal_type": "Funding",
+          "title": "Apple Commits $500B U.S. Investment with 20,000 Hires",
+          "description": "Apple committed $500 billion to U.S. investment, planning 20,000 new hires and opening a 250,000-square-foot AI server manufacturing facility in Houston, Texas by 2026.",
+          "date": null,
+          "strength": 10,
+          "confidence": 0.95,
+          "source_url": "https://www.rdworldonline.com/apple-commits-500b-plan-for-u-s-investment-adding-20000-mostly-rd-jobs",
+          "source_name": "R&D World",
+          "business_impact": "Major capital commitment to domestic AI infrastructure; high-priority for enterprise and supplier outreach."
+        }
+      ]
+    },
+    "outreach_sequence": [
+      {
+        "step_number": 1,
+        "channel": "email",
+        "subject": "Houston AI facility timeline + enterprise deployment velocity",
+        "body": "Sabih, Apple's $500B U.S. commitment and the Houston AI server facility opening by 2026 represent a massive operational buildout. With 20,000 new roles and simultaneous enterprise deployments like Marsh's iPhone 17 refresh, supply chain and logistics pressure is peaking. I help organizations compress facility ramp-up and enterprise hardware deployment timelines by 30%. Worth a brief chat?"
+      },
+      {
+        "step_number": 2,
+        "channel": "linkedin",
+        "subject": null,
+        "body": "Sabih, congrats on Apple's $500B U.S. investment and the Houston AI server facility milestone. My work focuses on accelerating large-scale infrastructure buildouts\u2014would love to connect."
+      },
+      {
+        "step_number": 3,
+        "channel": "email",
+        "subject": "Quick follow-up: Houston buildout support",
+        "body": "Sabih, following up on the Houston buildout and Marsh deployment scale. One 15-minute call to see if our timeline-compression approach fits your current ops roadmap? No deck, just a conversation. If now's not the moment, I'll check back in Q3."
+      }
+    ],
+    "business_signals": [
+      {
+        "signal_type": "Expansion",
+        "title": "Apple Expands Enterprise Footprint with Marsh Deployment",
+        "description": "Marsh, a leading professional services firm, deployed a large-scale refresh of corporate devices to iPhone 17 and adopted Mac for internal AI development in Q2 fiscal 2026.",
+        "date": null,
+        "strength": 9,
+        "confidence": 0.9,
+        "source_url": "https://finance.yahoo.com/technology/articles/apples-expanding-enterprise-footprint-boost-122200602.html",
+        "source_name": "Yahoo Finance",
+        "business_impact": "Signals strong demand for secure enterprise hardware; ideal for B2B partnership outreach."
+      },
+      {
+        "signal_type": "Funding",
+        "title": "Apple Commits $500B U.S. Investment with 20,000 Hires",
+        "description": "Apple committed $500 billion to U.S. investment, planning 20,000 new hires and opening a 250,000-square-foot AI server manufacturing facility in Houston, Texas by 2026.",
+        "date": null,
+        "strength": 10,
+        "confidence": 0.95,
+        "source_url": "https://www.rdworldonline.com/apple-commits-500b-plan-for-u-s-investment-adding-20000-mostly-rd-jobs",
+        "source_name": "R&D World",
+        "business_impact": "Major capital commitment to domestic AI infrastructure; high-priority for enterprise and supplier outreach."
+      }
+    ],
+    "opportunity_score": 92,
+    "agent_executions": {
+      "research_account": {
+        "agent_name": "research_account",
+        "status": "completed",
+        "started_at": "2026-10-09T16:01:52.265864+00:00",
+        "completed_at": "2026-10-09T16:01:58.443310+00:00",
+        "duration_ms": 6177.441699954215,
+        "confidence": 0.96
+      },
+      "detect_signals": {
+        "agent_name": "detect_signals",
+        "status": "completed",
+        "started_at": "2026-10-09T16:01:58.444052+00:00",
+        "completed_at": "2026-10-09T16:02:03.129723+00:00",
+        "duration_ms": 4685.66339998506,
+        "confidence": 0.94
+      },
+      "detect_personas": {
+        "agent_name": "detect_personas",
+        "status": "completed",
+        "started_at": "2026-10-09T16:02:03.131023+00:00",
+        "completed_at": "2026-10-09T16:02:07.223959+00:00",
+        "duration_ms": 4092.9059000336565,
+        "confidence": 0.92
+      },
+      "synthesize_intelligence": {
+        "agent_name": "synthesize_intelligence",
+        "status": "completed",
+        "started_at": "2026-10-09T16:02:07.225019+00:00",
+        "completed_at": "2026-10-09T16:02:09.861209+00:00",
+        "duration_ms": 2636.178499960806,
+        "confidence": 0.95
+      },
+      "detect_why_now": {
+        "agent_name": "detect_why_now",
+        "status": "completed",
+        "started_at": "2026-10-09T16:02:09.863790+00:00",
+        "completed_at": "2026-10-09T16:02:24.801936+00:00",
+        "duration_ms": 14938.140699989162,
+        "confidence": 0.92
+      },
+      "generate_outreach": {
+        "agent_name": "generate_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T16:02:24.803301+00:00",
+        "completed_at": "2026-10-09T16:02:32.253411+00:00",
+        "duration_ms": 7450.106900010724,
+        "confidence": 0.93
+      },
+      "critique_outreach": {
+        "agent_name": "critique_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T16:02:32.254133+00:00",
+        "completed_at": "2026-10-09T16:02:47.503811+00:00",
+        "duration_ms": 15249.671199999284,
+        "confidence": 0.96
+      },
+      "human_approval": {
+        "agent_name": "human_approval",
+        "status": "completed",
+        "started_at": "2026-10-09T16:02:47.504810+00:00",
+        "completed_at": "2026-10-09T16:02:47.805591+00:00",
+        "duration_ms": 300.7746000075713,
+        "confidence": 1.0
+      }
+    },
+    "id": "crm_bc3be06cce",
+    "synced_at": "2026-10-09T16:02:48.106834+00:00"
+  },
+  {
+    "company_name": "Apple",
+    "industry": "Consumer Technology / Electronics",
+    "summary": "Apple operates a highly profitable B2C hardware and services model, recently expanding its U.S. commitment to $600 billion to build out AI infrastructure and support 450,000+ jobs. The core opportunity lies in leveraging this massive AI buildout and new AI-native wearables to position your solutions within their rapidly evolving technology ecosystem.",
+    "key_personas": [
+      {
+        "role": "CEO (John Ternus)",
+        "persona_type": "Economic Buyer",
+        "reason": "As CEO, he holds ultimate budget authority and strategic direction for enterprise solutions.",
+        "relevance_score": 95,
+        "evidence": [
+          ""
+        ]
+      },
+      {
+        "role": "Chief Hardware Officer (Johny Srouji)",
+        "persona_type": "Technical Decision Maker",
+        "reason": "Oversees Apple's consolidated hardware organization, making him key for technical solution validation.",
+        "relevance_score": 90,
+        "evidence": [
+          ""
+        ]
+      }
+    ],
+    "why_now_analysis": {
+      "score": 91,
+      "summary": "Apple has just committed to a historic $600B U.S. infrastructure expansion (2025-2029), with AI server buildout in Houston and new hardware lines, creating an immediate and high-stakes window for AI infrastructure and R&D partnerships. Concurrently, their 2026 launch cycle for three AI-native wearables (smart glasses, camera pendant, AI AirPods) demands rapid supplier and partner R",
+      "signals": [
+        {
+          "signal_type": "Expansion",
+          "title": "Apple expands U.S. commitment to $600 billion",
+          "description": "Apple expanded its U.S. commitment to $600 billion over four years, including a Corning glass line in Kentucky and AI servers from its Houston facility, supporting 450,000+ U.S. jobs.",
+          "date": "2025-08",
+          "strength": 9,
+          "confidence": 0.92,
+          "source_url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program",
+          "source_name": "Apple Newsroom",
+          "business_impact": "Signals major AI infrastructure buildout; strong entry point for AI, cloud, and R&D partnerships."
+        },
+        {
+          "signal_type": "Product Launch",
+          "title": "Apple launches AI-native wearables in development",
+          "description": "Apple is developing three AI-native wearables\u2014smart glasses, an AirTag-sized camera pendant, and camera-equipped AirPods\u2014alongside Vision Pro and Apple Intelligence, leveraging 2.2 billion active devices.",
+          "date": "2026",
+          "strength": 8,
+          "confidence": 0.85,
+          "source_url": "https://startupintros.com/orgs/apple",
+          "source_name": "Startup Intros",
+          "business_impact": "Indicates AI-native device strategy; ideal for AI, wearable, and hardware supply chain outreach."
+        }
+      ]
+    },
+    "outreach_sequence": [
+      {
+        "step_number": 1,
+        "channel": "email",
+        "subject": "Accelerating AI integration for your 2026 wearable cycle",
+        "body": "Hi Johny,\n\nYour $600B U.S. buildout and the 2026 AI-native wearable launch cycle demand hardware AI integration at unprecedented speed. We help hardware teams compress AI model-to-silicon cycles without compromising your in-house security standards.\n\nWorth a 10-minute sync before your team finalizes supplier roadmaps?"
+      },
+      {
+        "step_number": 2,
+        "channel": "linkedin",
+        "subject": null,
+        "body": "Hi Johny - saw Apple's $600B U.S. expansion and the 2026 AI wearable push. Would value connecting to share how we're accelerating hardware AI integration for teams in your position."
+      },
+      {
+        "step_number": 3,
+        "channel": "email",
+        "subject": "Re: 2026 wearable cycle - quick question",
+        "body": "Hi Johny,\n\nFollowing up briefly. Given the Houston AI server buildout and your smart glasses roadmap, we can cut your AI-to-hardware integration timeline by weeks.\n\nOpen to a quick intro call this week?"
+      }
+    ],
+    "business_signals": [
+      {
+        "signal_type": "Expansion",
+        "title": "Apple expands U.S. commitment to $600 billion",
+        "description": "Apple expanded its U.S. commitment to $600 billion over four years, including a Corning glass line in Kentucky and AI servers from its Houston facility, supporting 450,000+ U.S. jobs.",
+        "date": "2025-08",
+        "strength": 9,
+        "confidence": 0.92,
+        "source_url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program",
+        "source_name": "Apple Newsroom",
+        "business_impact": "Signals major AI infrastructure buildout; strong entry point for AI, cloud, and R&D partnerships."
+      },
+      {
+        "signal_type": "Product Launch",
+        "title": "Apple launches AI-native wearables in development",
+        "description": "Apple is developing three AI-native wearables\u2014smart glasses, an AirTag-sized camera pendant, and camera-equipped AirPods\u2014alongside Vision Pro and Apple Intelligence, leveraging 2.2 billion active devices.",
+        "date": "2026",
+        "strength": 8,
+        "confidence": 0.85,
+        "source_url": "https://startupintros.com/orgs/apple",
+        "source_name": "Startup Intros",
+        "business_impact": "Indicates AI-native device strategy; ideal for AI, wearable, and hardware supply chain outreach."
+      }
+    ],
+    "opportunity_score": 91,
+    "agent_executions": {
+      "research_account": {
+        "agent_name": "research_account",
+        "status": "completed",
+        "started_at": "2026-10-09T16:07:56.250376+00:00",
+        "completed_at": "2026-10-09T16:08:03.052116+00:00",
+        "duration_ms": 6801.728499995079,
+        "confidence": 0.96
+      },
+      "detect_signals": {
+        "agent_name": "detect_signals",
+        "status": "completed",
+        "started_at": "2026-10-09T16:08:03.055099+00:00",
+        "completed_at": "2026-10-09T16:08:07.696479+00:00",
+        "duration_ms": 4641.375400009565,
+        "confidence": 0.94
+      },
+      "detect_personas": {
+        "agent_name": "detect_personas",
+        "status": "completed",
+        "started_at": "2026-10-09T16:08:07.697546+00:00",
+        "completed_at": "2026-10-09T16:08:11.754061+00:00",
+        "duration_ms": 4056.5120999817736,
+        "confidence": 0.92
+      },
+      "synthesize_intelligence": {
+        "agent_name": "synthesize_intelligence",
+        "status": "completed",
+        "started_at": "2026-10-09T16:08:11.754749+00:00",
+        "completed_at": "2026-10-09T16:08:15.167609+00:00",
+        "duration_ms": 3412.8541000536643,
+        "confidence": 0.95
+      },
+      "detect_why_now": {
+        "agent_name": "detect_why_now",
+        "status": "completed",
+        "started_at": "2026-10-09T16:08:15.168611+00:00",
+        "completed_at": "2026-10-09T16:08:29.507979+00:00",
+        "duration_ms": 14339.364999963436,
+        "confidence": 0.92
+      },
+      "generate_outreach": {
+        "agent_name": "generate_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T16:08:29.508681+00:00",
+        "completed_at": "2026-10-09T16:08:31.670882+00:00",
+        "duration_ms": 2162.194400036242,
+        "confidence": 0.93
+      },
+      "critique_outreach": {
+        "agent_name": "critique_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T16:08:31.672043+00:00",
+        "completed_at": "2026-10-09T16:08:50.489074+00:00",
+        "duration_ms": 18817.027700017206,
+        "confidence": 0.96
+      },
+      "human_approval": {
+        "agent_name": "human_approval",
+        "status": "completed",
+        "started_at": "2026-10-09T16:08:50.489995+00:00",
+        "completed_at": "2026-10-09T16:08:50.790845+00:00",
+        "duration_ms": 300.8435999508947,
+        "confidence": 1.0
+      }
+    },
+    "id": "crm_e9cf88aa27",
+    "synced_at": "2026-10-09T16:08:51.092660+00:00"
+  },
+  {
+    "company_name": "blinkit",
+    "industry": "Instant Grocery & Quick-Commerce / E-commerce",
+    "summary": "Blinkit is a hyper-scaling instant retail platform investing Rs 2,600 crore to expand its dark-store network across 150+ cities. Its aggressive infrastructure growth creates immediate demand for supply-chain, logistics, and category-onboarding technology solutions.",
+    "key_personas": [
+      {
+        "role": "Group Chief Executive Officer",
+        "persona_type": "Economic Buyer",
+        "reason": "As Group CEO, he has final authority on enterprise purchase decisions and budget allocation for the company.",
+        "relevance_score": 95,
+        "evidence": [
+          "CB Insights confirms Albinder Singh Dhindsa as Founder and Group Chief Executive Officer of Blinkit."
+        ]
+      },
+      {
+        "role": "Chief Technology Officer",
+        "persona_type": "Technical Decision Maker",
+        "reason": "CTO evaluates technical compatibility and oversees implementation of enterprise solutions across Blinkit's tech stack.",
+        "relevance_score": 88,
+        "evidence": [
+          "RocketReach lists Sajal Gupta as Chief Technology Officer at Blinkit, based in Gurugram."
+        ]
+      }
+    ],
+    "why_now_analysis": {
+      "score": 78,
+      "summary": "Blinkit is aggressively scaling to 2,243 dark stores across 150+ cities backed by a Rs 2,600 crore investment, creating immediate, high-intent demand for logistics and operations technology to support its rapid infrastructure buildout. The active onboarding of new brands like Vokka across 240+ cities signals a current operational window where platform tooling and supply-chain tech\u2014",
+      "signals": [
+        {
+          "signal_type": "Expansion",
+          "title": "Blinkit Scales to 2,243 Dark Stores Across 150+ Cities",
+          "description": "Blinkit scaled to 2,243 dark stores across 150+ cities by Q4 FY26, with Eternal Ltd investing Rs 2,600 crore in 2025-26 to fund expansion.",
+          "date": "2026-06-01",
+          "strength": 9,
+          "confidence": 0.9,
+          "source_url": "https://www.thefoundernation.com/what-is-blinkits-next-move-after-dominating-quick-commerce",
+          "source_name": "The Founder Nation",
+          "business_impact": "Blinkit's 2,243 stores across 150+ cities and 2,600 Cr investment signal high-growth quick commerce player ready for new product partnerships"
+        },
+        {
+          "signal_type": "Expansion",
+          "title": "Vokka Expands to 320+ Cities via Blinkit Quick Commerce",
+          "description": "Vokka expanded across Blinkit, Zepto, Swiggy Instamart, and Amazon Now, reaching 320+ cities with 10-minute delivery. Vokka operates in 240+ cities via Blinkit.",
+          "date": "2026-07-08",
+          "strength": 7,
+          "confidence": 0.85,
+          "source_url": "https://yourstory.com/2026/07/startup-news-and-updates-daily-roundup-july-8-2026",
+          "source_name": "YourStory",
+          "business_impact": "Vokka's 240+ city expansion via Blinkit demonstrates platform's rapid category onboarding and instant delivery network reach"
+        }
+      ]
+    },
+    "outreach_sequence": [
+      {
+        "step_number": 1,
+        "channel": "email",
+        "subject": "Dark-store ops at 2,243 stores",
+        "body": "Sajal, Blinkit\u2019s push to 2,243 dark stores across 150+ cities on a \u20b92,600 Cr investment is impressive. Scaling that infrastructure without slowing down ops is the real challenge. We built dark-store operations software specifically for this kind of rapid multi-city expansion. Worth a 15-minute chat this week?"
+      },
+      {
+        "step_number": 2,
+        "channel": "linkedin",
+        "subject": null,
+        "body": "Sajal, saw Blinkit hit 2,243 dark stores across 150+ cities. Congrats on the scale. We help quick-commerce platforms keep ops tight during rapid expansion. Open to connecting?"
+      },
+      {
+        "step_number": 3,
+        "channel": "email",
+        "subject": "Vokka in 240+ cities via Blinkit",
+        "body": "Sajal, quick follow-up. With Vokka now live in 240+ cities via Blinkit, category onboarding load is spiking. We have a case study on streamlining that exact workflow. Can I send it over for a 2-minute read?"
+      }
+    ],
+    "business_signals": [
+      {
+        "signal_type": "Expansion",
+        "title": "Blinkit Scales to 2,243 Dark Stores Across 150+ Cities",
+        "description": "Blinkit scaled to 2,243 dark stores across 150+ cities by Q4 FY26, with Eternal Ltd investing Rs 2,600 crore in 2025-26 to fund expansion.",
+        "date": "2026-06-01",
+        "strength": 9,
+        "confidence": 0.9,
+        "source_url": "https://www.thefoundernation.com/what-is-blinkits-next-move-after-dominating-quick-commerce",
+        "source_name": "The Founder Nation",
+        "business_impact": "Blinkit's 2,243 stores across 150+ cities and 2,600 Cr investment signal high-growth quick commerce player ready for new product partnerships"
+      },
+      {
+        "signal_type": "Expansion",
+        "title": "Vokka Expands to 320+ Cities via Blinkit Quick Commerce",
+        "description": "Vokka expanded across Blinkit, Zepto, Swiggy Instamart, and Amazon Now, reaching 320+ cities with 10-minute delivery. Vokka operates in 240+ cities via Blinkit.",
+        "date": "2026-07-08",
+        "strength": 7,
+        "confidence": 0.85,
+        "source_url": "https://yourstory.com/2026/07/startup-news-and-updates-daily-roundup-july-8-2026",
+        "source_name": "YourStory",
+        "business_impact": "Vokka's 240+ city expansion via Blinkit demonstrates platform's rapid category onboarding and instant delivery network reach"
+      }
+    ],
+    "opportunity_score": 78,
+    "agent_executions": {
+      "research_account": {
+        "agent_name": "research_account",
+        "status": "completed",
+        "started_at": "2026-10-09T16:44:53.393286+00:00",
+        "completed_at": "2026-10-09T16:45:04.069778+00:00",
+        "duration_ms": 10676.487599965185,
+        "confidence": 0.96
+      },
+      "detect_signals": {
+        "agent_name": "detect_signals",
+        "status": "completed",
+        "started_at": "2026-10-09T16:45:04.074494+00:00",
+        "completed_at": "2026-10-09T16:45:10.282785+00:00",
+        "duration_ms": 6208.27379997354,
+        "confidence": 0.94
+      },
+      "detect_personas": {
+        "agent_name": "detect_personas",
+        "status": "completed",
+        "started_at": "2026-10-09T16:45:10.286035+00:00",
+        "completed_at": "2026-10-09T16:45:16.334900+00:00",
+        "duration_ms": 6048.856500012334,
+        "confidence": 0.92
+      },
+      "synthesize_intelligence": {
+        "agent_name": "synthesize_intelligence",
+        "status": "completed",
+        "started_at": "2026-10-09T16:45:16.337767+00:00",
+        "completed_at": "2026-10-09T16:45:20.967195+00:00",
+        "duration_ms": 4629.420300014317,
+        "confidence": 0.95
+      },
+      "detect_why_now": {
+        "agent_name": "detect_why_now",
+        "status": "completed",
+        "started_at": "2026-10-09T16:45:20.969089+00:00",
+        "completed_at": "2026-10-09T16:45:39.146894+00:00",
+        "duration_ms": 18177.798399992753,
+        "confidence": 0.92
+      },
+      "generate_outreach": {
+        "agent_name": "generate_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T16:45:39.148733+00:00",
+        "completed_at": "2026-10-09T16:45:42.904149+00:00",
+        "duration_ms": 3755.407600023318,
+        "confidence": 0.93
+      },
+      "critique_outreach": {
+        "agent_name": "critique_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T16:45:42.906892+00:00",
+        "completed_at": "2026-10-09T16:46:04.679718+00:00",
+        "duration_ms": 21772.822099970654,
+        "confidence": 0.96
+      },
+      "human_approval": {
+        "agent_name": "human_approval",
+        "status": "completed",
+        "started_at": "2026-10-09T16:46:04.681308+00:00",
+        "completed_at": "2026-10-09T16:46:04.982220+00:00",
+        "duration_ms": 300.9007999789901,
+        "confidence": 1.0
+      }
+    },
+    "id": "crm_0e62a8cbfc",
+    "synced_at": "2026-10-09T16:46:05.284983+00:00"
+  },
+  {
+    "company_name": "https://www.netflix.com/in/login?nextpage=https%3A%2F%2Fwww.netflix.com%2Fin%2Ftitle%2F81444051&serverState=BgigvevcAxKJArNFKY5Bq55PBWnmzbhRgkWIQwo8nm8vJlk325ArFmQsdSx%2FpkoSxrL4dYMMDaN3hxCMKSr1dwiUvOFj4hz9CCLUnzVR2f7wgHgBfekV4tn6%2B6WkfPqqQhaCvRvAkbN5Odpfy%2BPnteetrBrOeL1RWsjNI87N36mCLfdocu2yDMpSVSytNuVjtAphC2q8AXHAqxU7D8NUr1Z2ZVs9I1BJgbMA6NetIJoW3kFHXXFLewsaPn%2FDS2W2LSnLJovSi4vroYm4tehBxYH67eIxOYXnZWYgBmu7wFBy23RUuktcaOJ8V72qVTcQaWi3b0yXH5rCyte2JjoidoHQCQpKDU8Yk%2BNQDHJww%2BV0Q0QYBiIOCgywB%2F7%2BfguATfHXb0U%3D",
+    "industry": "Entertainment / Streaming Media",
+    "summary": "Netflix is a globally dominant B2C subscription streaming service scaling rapidly via an accelerated ad-tier strategy and a 10% 2026 content spend increase. The core B2B opportunity lies in supporting its surging ad-tech infrastructure and studio acquisition integration.",
+    "key_personas": [
+      {
+        "role": "Vice President, Infrastructure Engineering",
+        "persona_type": "Technical Decision Maker",
+        "reason": "VP of Infrastructure Engineering controls evaluation of technical enterprise platforms and system integration decisions.",
+        "relevance_score": 92,
+        "evidence": [
+          "Gagan Hasteer is listed as \"Vice President, Infrastructure Engineering\" in Netflix's 2026 leadership roster"
+        ]
+      },
+      {
+        "role": "Vice President, Finance, Investor Relations and Corporate Development",
+        "persona_type": "Economic Buyer",
+        "reason": "VP of Finance and Corporate Development owns budget approval and ROI analysis for enterprise purchases.",
+        "relevance_score": 88,
+        "evidence": [
+          "Spencer Wang serves as VP, Finance, Investor Relations and Corporate Development per Netflix exec data"
+        ]
+      }
+    ],
+    "why_now_analysis": {
+      "score": 88,
+      "summary": "Netflix's Q1 2026 earnings (April 2026) confirm a 70% YoY surge in ad clients and a ~$3B ad revenue run-rate, creating an urgent window to position as an ad-tech and measurement partner before competing vendors lock in enterprise contracts. This is compounded by an announced 10% increase in 2026 content spend and a pending studio acquisition, signaling a time-sensitive M&A and ad-",
+      "signals": [
+        {
+          "signal_type": "Expansion",
+          "title": "Netflix Q1 2026 revenue up 16%, ad clients up 70%",
+          "description": "Netflix Q1 2026 revenue grew 16%; ad plan now over 60% of Q1 signups, 4,000+ ad clients (up 70% YoY), ~$3B ad revenue expected.",
+          "date": "2026-04-16",
+          "strength": 9,
+          "confidence": 0.95,
+          "source_url": "https://s22.q4cdn.com/959853165/files/doc_financials/2026/q1/FINAL-Q1-26-Shareholder-Letter.pdf",
+          "source_name": "Netflix Q1 2026 Shareholder Letter",
+          "business_impact": "Strong ad revenue trajectory supports enterprise sales outreach for ad-tech and measurement partnerships."
+        },
+        {
+          "signal_type": "Expansion",
+          "title": "Netflix to Boost 2026 Program Spending 10%",
+          "description": "Netflix plans to increase film/TV spending by 10% in 2026 and is moving forward with a studio acquisition.",
+          "date": null,
+          "strength": 8,
+          "confidence": 0.9,
+          "source_url": "https://www.youtube.com/watch?v=lM8MBMhkSQI",
+          "source_name": "Bloomberg Businessweek",
+          "business_impact": "Signals major M&A and content investment cycle; opportunity for advisory, integration, or B2B partnerships."
+        }
+      ]
+    },
+    "outreach_sequence": [
+      {
+        "step_number": 1,
+        "channel": "email",
+        "subject": "4,000+ ad clients + studio acquisition\u2014pipeline scale check",
+        "body": "Gagan, Netflix's Q1 letter flagged 4,000+ ad clients and a 70% YoY jump\u2014roughly $3B in ad revenue expected. Scaling that infrastructure while integrating a studio acquisition is no small lift. I help engineering leaders keep ad-tech measurement and delivery pipelines stable during that kind of simultaneous expansion. Worth a 15-minute chat next week?"
+      },
+      {
+        "step_number": 2,
+        "channel": "linkedin",
+        "subject": null,
+        "body": "Gagan, saw Netflix's Q1 letter\u201470% ad client growth and that studio acquisition moving forward. Congrats on the momentum. Would love to connect."
+      },
+      {
+        "step_number": 3,
+        "channel": "email",
+        "subject": "Quick follow-up: ad-tech infra + studio integration",
+        "body": "Gagan, following up\u2014given the 10% content spend bump and studio integration ahead, I've got a short framework on keeping ad-tech infrastructure from becoming the bottleneck. Happy to share it. Worth a quick look?"
+      }
+    ],
+    "business_signals": [
+      {
+        "signal_type": "Expansion",
+        "title": "Netflix Q1 2026 revenue up 16%, ad clients up 70%",
+        "description": "Netflix Q1 2026 revenue grew 16%; ad plan now over 60% of Q1 signups, 4,000+ ad clients (up 70% YoY), ~$3B ad revenue expected.",
+        "date": "2026-04-16",
+        "strength": 9,
+        "confidence": 0.95,
+        "source_url": "https://s22.q4cdn.com/959853165/files/doc_financials/2026/q1/FINAL-Q1-26-Shareholder-Letter.pdf",
+        "source_name": "Netflix Q1 2026 Shareholder Letter",
+        "business_impact": "Strong ad revenue trajectory supports enterprise sales outreach for ad-tech and measurement partnerships."
+      },
+      {
+        "signal_type": "Expansion",
+        "title": "Netflix to Boost 2026 Program Spending 10%",
+        "description": "Netflix plans to increase film/TV spending by 10% in 2026 and is moving forward with a studio acquisition.",
+        "date": null,
+        "strength": 8,
+        "confidence": 0.9,
+        "source_url": "https://www.youtube.com/watch?v=lM8MBMhkSQI",
+        "source_name": "Bloomberg Businessweek",
+        "business_impact": "Signals major M&A and content investment cycle; opportunity for advisory, integration, or B2B partnerships."
+      }
+    ],
+    "opportunity_score": 88,
+    "agent_executions": {
+      "research_account": {
+        "agent_name": "research_account",
+        "status": "completed",
+        "started_at": "2026-10-09T16:55:56.685917+00:00",
+        "completed_at": "2026-10-09T16:56:06.882457+00:00",
+        "duration_ms": 10196.53209997341,
+        "confidence": 0.96
+      },
+      "detect_signals": {
+        "agent_name": "detect_signals",
+        "status": "completed",
+        "started_at": "2026-10-09T16:56:06.884999+00:00",
+        "completed_at": "2026-10-09T16:56:14.645213+00:00",
+        "duration_ms": 7760.198999952991,
+        "confidence": 0.94
+      },
+      "detect_personas": {
+        "agent_name": "detect_personas",
+        "status": "completed",
+        "started_at": "2026-10-09T16:56:14.647300+00:00",
+        "completed_at": "2026-10-09T16:56:20.679425+00:00",
+        "duration_ms": 6032.117800030392,
+        "confidence": 0.92
+      },
+      "synthesize_intelligence": {
+        "agent_name": "synthesize_intelligence",
+        "status": "completed",
+        "started_at": "2026-10-09T16:56:20.681939+00:00",
+        "completed_at": "2026-10-09T16:56:25.847687+00:00",
+        "duration_ms": 5165.742799988948,
+        "confidence": 0.95
+      },
+      "detect_why_now": {
+        "agent_name": "detect_why_now",
+        "status": "completed",
+        "started_at": "2026-10-09T16:56:25.849244+00:00",
+        "completed_at": "2026-10-09T16:56:39.040428+00:00",
+        "duration_ms": 13191.174999985378,
+        "confidence": 0.92
+      },
+      "generate_outreach": {
+        "agent_name": "generate_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T16:56:39.042009+00:00",
+        "completed_at": "2026-10-09T16:56:49.029816+00:00",
+        "duration_ms": 9987.801200011745,
+        "confidence": 0.93
+      },
+      "critique_outreach": {
+        "agent_name": "critique_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T16:56:49.031559+00:00",
+        "completed_at": "2026-10-09T16:57:04.018350+00:00",
+        "duration_ms": 14986.786200024653,
+        "confidence": 0.96
+      },
+      "human_approval": {
+        "agent_name": "human_approval",
+        "status": "completed",
+        "started_at": "2026-10-09T16:57:04.019716+00:00",
+        "completed_at": "2026-10-09T16:57:04.320791+00:00",
+        "duration_ms": 301.0605000308715,
+        "confidence": 1.0
+      }
+    },
+    "id": "crm_2ea157fbeb",
+    "synced_at": "2026-10-09T16:57:04.623933+00:00"
+  },
+  {
+    "company_name": "Anthropic",
+    "industry": "Artificial Intelligence / Large Language Models",
+    "summary": "Anthropic is a San Francisco AI company offering B2B SaaS and API access to its Claude large language models, generating over $1M annual spend from 1,000+ enterprise customers following a $30B Series G at a $380B valuation. Claude Code business subscriptions have quadrupled year-over-year, presenting a critical window to secure Anthropic as an enterprise AI infrastructure partner before competitor lock-in solidifies.",
+    "key_personas": [
+      {
+        "role": "Chief Technology Officer (Rahul Patil)",
+        "persona_type": "Technical Decision Maker",
+        "reason": "CTO leads engineering, infrastructure, and security as Anthropic scales enterprise demand\u2014key technical gatekeeper for solutions.",
+        "relevance_score": 95,
+        "evidence": [
+          "Rahul Patil leads the engineering organization across inference, product, infrastructure, and security as the company scales to meet growing enterprise demand worldwide."
+        ]
+      }
+    ],
+    "why_now_analysis": {
+      "score": 94,
+      "summary": "Anthropic just closed a $30B Series G at a $380B valuation and reports Claude Code business subscriptions have quadrupled, creating an urgent, single-window to lock in an enterprise AI infrastructure partnership before competitor cloud lock-in (Amazon/Google) solidifies. Both signals are high-confidence and dated within the last week, so outreach to CTO Rahul Patil should happen in",
+      "signals": [
+        {
+          "signal_type": "Funding",
+          "title": "Anthropic closes $30B Series G at $380B",
+          "description": "On Feb 12, 2026, Anthropic closed $30B Series G led by GIC and Coatue, co-led by D.E. Shaw, Dragoneer, Founders Fund, ICONIQ, MGX, at $380B post-money.",
+          "date": "2026-02-12",
+          "strength": 10,
+          "confidence": 0.98,
+          "source_url": "https://www.cnbc.com/2026/02/12/anthropic-closes-30-billion-funding-round-at-380-billion-valuation.html",
+          "source_name": "CNBC",
+          "business_impact": "Signals massive enterprise demand and scaling capacity for enterprise-grade AI; prime target for enterprise partnership outreach."
+        },
+        {
+          "signal_type": "Expansion",
+          "title": "Claude Code business subscriptions quadruple",
+          "description": "Anthropic reports business subscriptions to Claude Code have quadrupled, reinforcing its position as market leader in enterprise AI and coding.",
+          "date": "2026-02-12",
+          "strength": 9,
+          "confidence": 0.95,
+          "source_url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation",
+          "source_name": "Anthropic",
+          "business_impact": "Confirms enterprise AI market leadership; ideal partner for enterprise AI and coding solutions."
+        }
+      ]
+    },
+    "outreach_sequence": [
+      {
+        "step_number": 1,
+        "channel": "email",
+        "subject": "Claude Code's 4x growth \u2192 inference scaling",
+        "body": "Rahul, congrats on the $30B Series G and Claude Code subscriptions quadrupling. That growth curve means inference scaling is your next bottleneck before Amazon/Google lock-in tightens. I help AI infra teams add redundant, low-latency capacity in under two weeks. Worth a 15-min chat this week?"
+      },
+      {
+        "step_number": 2,
+        "channel": "linkedin",
+        "subject": null,
+        "body": "Rahul, congrats on the $30B raise and Claude Code's 4x subscription surge. Would love to connect as you scale infra for that demand."
+      },
+      {
+        "step_number": 3,
+        "channel": "email",
+        "subject": "Re: Claude Code's 4x growth \u2192 inference scaling",
+        "body": "Rahul, quick bump\u2014given Claude Code's 4x jump, is inference capacity a priority for Q2? Happy to share a one-page scaling brief, no call needed."
+      }
+    ],
+    "business_signals": [
+      {
+        "signal_type": "Funding",
+        "title": "Anthropic closes $30B Series G at $380B",
+        "description": "On Feb 12, 2026, Anthropic closed $30B Series G led by GIC and Coatue, co-led by D.E. Shaw, Dragoneer, Founders Fund, ICONIQ, MGX, at $380B post-money.",
+        "date": "2026-02-12",
+        "strength": 10,
+        "confidence": 0.98,
+        "source_url": "https://www.cnbc.com/2026/02/12/anthropic-closes-30-billion-funding-round-at-380-billion-valuation.html",
+        "source_name": "CNBC",
+        "business_impact": "Signals massive enterprise demand and scaling capacity for enterprise-grade AI; prime target for enterprise partnership outreach."
+      },
+      {
+        "signal_type": "Expansion",
+        "title": "Claude Code business subscriptions quadruple",
+        "description": "Anthropic reports business subscriptions to Claude Code have quadrupled, reinforcing its position as market leader in enterprise AI and coding.",
+        "date": "2026-02-12",
+        "strength": 9,
+        "confidence": 0.95,
+        "source_url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation",
+        "source_name": "Anthropic",
+        "business_impact": "Confirms enterprise AI market leadership; ideal partner for enterprise AI and coding solutions."
+      }
+    ],
+    "opportunity_score": 94,
+    "agent_executions": {
+      "research_account": {
+        "agent_name": "research_account",
+        "status": "completed",
+        "started_at": "2026-10-09T17:47:32.870518+00:00",
+        "completed_at": "2026-10-09T17:47:41.994267+00:00",
+        "duration_ms": 9123.738599999342,
+        "confidence": 0.96
+      },
+      "detect_signals": {
+        "agent_name": "detect_signals",
+        "status": "completed",
+        "started_at": "2026-10-09T17:47:41.996984+00:00",
+        "completed_at": "2026-10-09T17:47:48.283356+00:00",
+        "duration_ms": 6286.356700002216,
+        "confidence": 0.94
+      },
+      "detect_personas": {
+        "agent_name": "detect_personas",
+        "status": "completed",
+        "started_at": "2026-10-09T17:47:48.285342+00:00",
+        "completed_at": "2026-10-09T17:47:54.118282+00:00",
+        "duration_ms": 5832.933800003957,
+        "confidence": 0.92
+      },
+      "synthesize_intelligence": {
+        "agent_name": "synthesize_intelligence",
+        "status": "completed",
+        "started_at": "2026-10-09T17:47:54.119911+00:00",
+        "completed_at": "2026-10-09T17:47:58.956615+00:00",
+        "duration_ms": 4836.69570001075,
+        "confidence": 0.95
+      },
+      "detect_why_now": {
+        "agent_name": "detect_why_now",
+        "status": "completed",
+        "started_at": "2026-10-09T17:47:58.958791+00:00",
+        "completed_at": "2026-10-09T17:48:09.819526+00:00",
+        "duration_ms": 10860.731800028589,
+        "confidence": 0.92
+      },
+      "generate_outreach": {
+        "agent_name": "generate_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T17:48:39.824469+00:00",
+        "completed_at": "2026-10-09T17:48:57.433254+00:00",
+        "duration_ms": 17608.776799985208,
+        "confidence": 0.93
+      },
+      "critique_outreach": {
+        "agent_name": "critique_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T17:48:57.434976+00:00",
+        "completed_at": "2026-10-09T17:49:18.318531+00:00",
+        "duration_ms": 20883.506699989084,
+        "confidence": 0.96
+      },
+      "human_approval": {
+        "agent_name": "human_approval",
+        "status": "completed",
+        "started_at": "2026-10-09T17:49:18.320401+00:00",
+        "completed_at": "2026-10-09T17:49:18.621710+00:00",
+        "duration_ms": 301.29590001888573,
+        "confidence": 1.0
+      }
+    },
+    "id": "crm_77da243ce3",
+    "synced_at": "2026-10-09T17:49:18.923792+00:00"
+  },
+  {
+    "company_name": "Anthropic",
+    "industry": "Artificial Intelligence / Large Language Models",
+    "summary": "Anthropic is an enterprise B2B AI platform generating $30B+ in annual revenue, driven by rapid adoption of Claude Code and frontier LLM APIs. The core opportunity is to support their massive enterprise GTM expansion following $65B in recent funding.",
+    "key_personas": [
+      {
+        "role": "Chief Technology Officer",
+        "persona_type": "Technical Decision Maker",
+        "reason": "Oversees engineering, infrastructure, and security as Anthropic scales to meet growing enterprise demand worldwide.",
+        "relevance_score": 92,
+        "evidence": [
+          "Rahul Patil leads the engineering organization across inference, product, infrastructure, and security as the company scales to meet growing enterprise demand worldwide."
+        ]
+      },
+      {
+        "role": "Chief Commercial Officer",
+        "persona_type": "Economic Buyer",
+        "reason": "First Chief Commercial Officer driving global enterprise expansion and commercial revenue strategy at scale.",
+        "relevance_score": 88,
+        "evidence": [
+          "Paul Smith appointed as Anthropic's first Chief Commercial Officer to lead commercial strategy and enterprise sales."
+        ]
+      }
+    ],
+    "why_now_analysis": {
+      "score": 95,
+      "summary": "Anthropic just closed a $30B Series G at a $380B valuation (Feb 12, 2026) while Claude Code enterprise subscriptions quadrupled, creating an immediate and well-funded window to engage on enterprise GTM and sales infrastructure. The combination of fresh capital, 4x subscription growth, and documented expansion into regulated enterprise environments makes this the highest-urgency buy",
+      "signals": [
+        {
+          "signal_type": "Funding",
+          "title": "Anthropic Closes $30B Series G at $380B Valuation",
+          "description": "Anthropic raised a $30 billion Series G led by GIC and Coatue, co-led by Founders Fund, ICONIQ, and Dragoneer, at a $380 billion post-money valuation.",
+          "date": "2026-02-12",
+          "strength": 10,
+          "confidence": 1.0,
+          "source_url": "https://www.cnbc.com/2026/02/12/anthropic-closes-30-billion-funding-round-at-380-billion-valuation.html",
+          "source_name": "CNBC",
+          "business_impact": "Validates massive capital for enterprise AI infrastructure, signaling a major sales cycle for enterprise AI tooling."
+        },
+        {
+          "signal_type": "Expansion",
+          "title": "Claude Code Enterprise Subscriptions Quadruple",
+          "description": "Anthropic reports Claude Code business subscriptions quadrupled, with Claude embedded in enterprise workflows and regulated environments, driving rapid enterprise revenue growth.",
+          "date": "2026-02-12",
+          "strength": 9,
+          "confidence": 0.95,
+          "source_url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation",
+          "source_name": "Anthropic",
+          "business_impact": "Rapid enterprise revenue growth and coding adoption indicate expanding enterprise GTM needs and procurement activity."
+        }
+      ]
+    },
+    "outreach_sequence": [
+      {
+        "step_number": 1,
+        "channel": "email",
+        "subject": "4x Claude Code growth \u2014 scaling GTM?",
+        "body": "Paul, congrats on the $30B Series G close and the first CCO appointment. With Claude Code enterprise subs up 4x and you scaling GTM into regulated environments, I help teams accelerate enterprise sales velocity without bloating ops. Worth a 15-min chat this week?"
+      },
+      {
+        "step_number": 2,
+        "channel": "linkedin",
+        "subject": null,
+        "body": "Paul, congrats on the $30B Series G and your new CCO role. Want to connect on scaling enterprise GTM as Claude Code subs quadruple?"
+      },
+      {
+        "step_number": 3,
+        "channel": "email",
+        "subject": "Quick follow-up: GTM tooling for Claude Code scale",
+        "body": "Paul, following up \u2014 with 4x Claude Code subscription growth and fresh $30B in the bank, GTM tooling is likely on the roadmap. Can I share a 2-page one-pager showing how we've accelerated enterprise sales cycles for AI platforms?"
+      }
+    ],
+    "business_signals": [
+      {
+        "signal_type": "Funding",
+        "title": "Anthropic Closes $30B Series G at $380B Valuation",
+        "description": "Anthropic raised a $30 billion Series G led by GIC and Coatue, co-led by Founders Fund, ICONIQ, and Dragoneer, at a $380 billion post-money valuation.",
+        "date": "2026-02-12",
+        "strength": 10,
+        "confidence": 1.0,
+        "source_url": "https://www.cnbc.com/2026/02/12/anthropic-closes-30-billion-funding-round-at-380-billion-valuation.html",
+        "source_name": "CNBC",
+        "business_impact": "Validates massive capital for enterprise AI infrastructure, signaling a major sales cycle for enterprise AI tooling."
+      },
+      {
+        "signal_type": "Expansion",
+        "title": "Claude Code Enterprise Subscriptions Quadruple",
+        "description": "Anthropic reports Claude Code business subscriptions quadrupled, with Claude embedded in enterprise workflows and regulated environments, driving rapid enterprise revenue growth.",
+        "date": "2026-02-12",
+        "strength": 9,
+        "confidence": 0.95,
+        "source_url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation",
+        "source_name": "Anthropic",
+        "business_impact": "Rapid enterprise revenue growth and coding adoption indicate expanding enterprise GTM needs and procurement activity."
+      }
+    ],
+    "opportunity_score": 95,
+    "agent_executions": {
+      "research_account": {
+        "agent_name": "research_account",
+        "status": "completed",
+        "started_at": "2026-10-09T18:54:11.681084+00:00",
+        "completed_at": "2026-10-09T18:54:22.022921+00:00",
+        "duration_ms": 10341.827500029467,
+        "confidence": 0.96
+      },
+      "detect_signals": {
+        "agent_name": "detect_signals",
+        "status": "completed",
+        "started_at": "2026-10-09T18:54:22.026007+00:00",
+        "completed_at": "2026-10-09T18:54:29.219836+00:00",
+        "duration_ms": 7193.81979998434,
+        "confidence": 0.94
+      },
+      "detect_personas": {
+        "agent_name": "detect_personas",
+        "status": "completed",
+        "started_at": "2026-10-09T18:54:29.221338+00:00",
+        "completed_at": "2026-10-09T18:54:37.047613+00:00",
+        "duration_ms": 7826.266500051133,
+        "confidence": 0.92
+      },
+      "synthesize_intelligence": {
+        "agent_name": "synthesize_intelligence",
+        "status": "completed",
+        "started_at": "2026-10-09T18:54:37.049562+00:00",
+        "completed_at": "2026-10-09T18:54:46.894815+00:00",
+        "duration_ms": 9845.245699980296,
+        "confidence": 0.95
+      },
+      "detect_why_now": {
+        "agent_name": "detect_why_now",
+        "status": "completed",
+        "started_at": "2026-10-09T18:54:46.896761+00:00",
+        "completed_at": "2026-10-09T18:54:52.868538+00:00",
+        "duration_ms": 5971.7678000452,
+        "confidence": 0.92
+      },
+      "generate_outreach": {
+        "agent_name": "generate_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T18:54:52.870538+00:00",
+        "completed_at": "2026-10-09T18:54:57.585541+00:00",
+        "duration_ms": 4714.993199973833,
+        "confidence": 0.93
+      },
+      "critique_outreach": {
+        "agent_name": "critique_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T18:54:57.587397+00:00",
+        "completed_at": "2026-10-09T18:55:16.223629+00:00",
+        "duration_ms": 18636.223900015466,
+        "confidence": 0.96
+      },
+      "human_approval": {
+        "agent_name": "human_approval",
+        "status": "completed",
+        "started_at": "2026-10-09T18:55:16.225459+00:00",
+        "completed_at": "2026-10-09T18:55:16.526312+00:00",
+        "duration_ms": 300.8467999752611,
+        "confidence": 1.0
+      }
+    },
+    "id": "crm_aa23d5f360",
+    "synced_at": "2026-10-09T18:55:16.830247+00:00"
+  },
+  {
+    "company_name": "Target Account",
+    "industry": "Financial Services / Investment Banking & Capital Markets",
+    "summary": "Target is executing an aggressive $5B expansion plan for 30+ new stores and $2B in technology upgrades to fuel its next growth chapter. This massive capital deployment creates a critical window to position our platform for their store operations and digital infrastructure build-out.",
+    "key_personas": [
+      {
+        "role": "Chief Information and Product Officer",
+        "persona_type": "Economic Buyer",
+        "reason": "Oversees enterprise technology and product strategy, making him the primary budget owner for platform solutions.",
+        "relevance_score": 95,
+        "evidence": [
+          "Prat Vemana is Chief Information and Product Officer on Target's executive team."
+        ]
+      },
+      {
+        "role": "Chief Digital and Revenue Officer",
+        "persona_type": "Champion",
+        "reason": "Owns digital commerce and revenue growth, driving adoption of solutions that accelerate online sales.",
+        "relevance_score": 88,
+        "evidence": [
+          "Sarah Travis leads Target's digital business, digital operations, and retail media company Roundel."
+        ]
+      }
+    ],
+    "why_now_analysis": {
+      "score": 95,
+      "summary": "Target's $5B capital commitment and $2B technology investment for 30+ new stores represents an immediate, high-urgency opportunity with a compressed deployment timeline. The announced 2026 rollout creates a critical window to secure positioning before vendor relationships solidify and sales cycles compress.",
+      "signals": [
+        {
+          "signal_type": "Expansion",
+          "title": "Target Commits $5B for 30+ New Stores",
+          "description": "Target announced a $5B capital investment plan for 2026, opening 30+ new stores including its 2,000th in Fuquay-Varina, NC.",
+          "date": "2026-03-05",
+          "strength": 9,
+          "confidence": 1.0,
+          "source_url": "https://www.prnewswire.com/news-releases/target-ramps-up-store-investments-to-fuel-new-chapter-of-growth-302704665.html",
+          "source_name": "PR Newswire",
+          "business_impact": "Major capital commitment signals heavy demand for supply chain, IT, and construction vendors."
+        },
+        {
+          "signal_type": "Funding",
+          "title": "Target Invests Incremental $2B in Technology",
+          "description": "Target plans an incremental $2B investment in 2026, including $1B+ additional capex for technology and supply chain upgrades.",
+          "date": "2026-03-05",
+          "strength": 9,
+          "confidence": 1.0,
+          "source_url": "https://corporate.target.com/press/release/2026/03/target-outlines-strategic-plan-for-a-new-chapter-of-growth-in-2026-and-beyond",
+          "source_name": "Target Corporation",
+          "business_impact": "Technology investments create opportunities for IT, logistics, and automation vendors."
+        }
+      ]
+    },
+    "outreach_sequence": [
+      {
+        "step_number": 1,
+        "channel": "email",
+        "subject": "30 new stores, $2B tech budget, compressed timeline",
+        "body": "Prat, your $2B technology investment for 30+ new stores (including the 2,000th in Fuquay-Varina) is a massive build. Our platform accelerates store tech deployment, cutting go-live timelines for exactly this scale of rollout. With your 2026 rollout compressed, can I share how we've helped retail leaders deploy faster on similar expansions? 15-min call this week?"
+      },
+      {
+        "step_number": 2,
+        "channel": "linkedin",
+        "subject": null,
+        "body": "Prat, congrats on the $5B expansion and 2,000th store milestone. Our platform accelerates store tech deployment at that scale. Would love to connect."
+      },
+      {
+        "step_number": 3,
+        "channel": "email",
+        "subject": "Re: Store deployment timeline",
+        "body": "Prat, quick follow-up on the store tech deployment topic. With your 30-site rollout deadline tightening, is there a specific deployment bottleneck I could help unblock? Happy to share a 2-page brief on how we've accelerated similar retail build-outs. No pressure."
+      }
+    ],
+    "business_signals": [
+      {
+        "signal_type": "Expansion",
+        "title": "Target Commits $5B for 30+ New Stores",
+        "description": "Target announced a $5B capital investment plan for 2026, opening 30+ new stores including its 2,000th in Fuquay-Varina, NC.",
+        "date": "2026-03-05",
+        "strength": 9,
+        "confidence": 1.0,
+        "source_url": "https://www.prnewswire.com/news-releases/target-ramps-up-store-investments-to-fuel-new-chapter-of-growth-302704665.html",
+        "source_name": "PR Newswire",
+        "business_impact": "Major capital commitment signals heavy demand for supply chain, IT, and construction vendors."
+      },
+      {
+        "signal_type": "Funding",
+        "title": "Target Invests Incremental $2B in Technology",
+        "description": "Target plans an incremental $2B investment in 2026, including $1B+ additional capex for technology and supply chain upgrades.",
+        "date": "2026-03-05",
+        "strength": 9,
+        "confidence": 1.0,
+        "source_url": "https://corporate.target.com/press/release/2026/03/target-outlines-strategic-plan-for-a-new-chapter-of-growth-in-2026-and-beyond",
+        "source_name": "Target Corporation",
+        "business_impact": "Technology investments create opportunities for IT, logistics, and automation vendors."
+      }
+    ],
+    "opportunity_score": 95,
+    "agent_executions": {
+      "research_account": {
+        "agent_name": "research_account",
+        "status": "completed",
+        "started_at": "2026-10-09T19:53:05.917084+00:00",
+        "completed_at": "2026-10-09T19:53:16.071300+00:00",
+        "duration_ms": 10154.209600004833,
+        "confidence": 0.96
+      },
+      "detect_signals": {
+        "agent_name": "detect_signals",
+        "status": "completed",
+        "started_at": "2026-10-09T19:53:16.073089+00:00",
+        "completed_at": "2026-10-09T19:53:22.906540+00:00",
+        "duration_ms": 6833.4444999927655,
+        "confidence": 0.94
+      },
+      "detect_personas": {
+        "agent_name": "detect_personas",
+        "status": "completed",
+        "started_at": "2026-10-09T19:53:22.907939+00:00",
+        "completed_at": "2026-10-09T19:53:29.459687+00:00",
+        "duration_ms": 6551.740899973083,
+        "confidence": 0.92
+      },
+      "synthesize_intelligence": {
+        "agent_name": "synthesize_intelligence",
+        "status": "completed",
+        "started_at": "2026-10-09T19:53:29.461322+00:00",
+        "completed_at": "2026-10-09T19:53:33.804559+00:00",
+        "duration_ms": 4343.227700039279,
+        "confidence": 0.95
+      },
+      "detect_why_now": {
+        "agent_name": "detect_why_now",
+        "status": "completed",
+        "started_at": "2026-10-09T19:53:33.806849+00:00",
+        "completed_at": "2026-10-09T19:53:40.326201+00:00",
+        "duration_ms": 6519.346799992491,
+        "confidence": 0.92
+      },
+      "generate_outreach": {
+        "agent_name": "generate_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T19:54:32.883365+00:00",
+        "completed_at": "2026-10-09T19:54:46.238515+00:00",
+        "duration_ms": 13355.1438000286,
+        "confidence": 0.93
+      },
+      "critique_outreach": {
+        "agent_name": "critique_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T19:54:46.240166+00:00",
+        "completed_at": "2026-10-09T19:55:08.250018+00:00",
+        "duration_ms": 22009.84299997799,
+        "confidence": 0.96
+      },
+      "human_approval": {
+        "agent_name": "human_approval",
+        "status": "completed",
+        "started_at": "2026-10-09T19:55:08.251727+00:00",
+        "completed_at": "2026-10-09T19:55:08.552466+00:00",
+        "duration_ms": 300.72980001568794,
+        "confidence": 1.0
+      }
+    },
+    "id": "crm_56c35dde37",
+    "synced_at": "2026-10-09T19:55:08.854716+00:00"
+  },
+  {
+    "company_name": "Apple",
+    "industry": "Consumer Technology / Personal Computing, Mobile Devices, and Digital Services",
+    "summary": "Apple Inc. is a $4.92T market-cap consumer technology and digital services giant, currently driving growth through on-device AI and expanding AI-native hardware lines. The core opportunity lies in aligning enterprise solutions with Apple's aggressive 2026 AI product roadmap and custom silicon expansion.",
+    "key_personas": [
+      {
+        "role": "Chief Operating Officer, Sabih Khan",
+        "persona_type": "Economic Buyer",
+        "reason": "COO controls enterprise operational spend and approves large-scale vendor solutions.",
+        "relevance_score": 95,
+        "evidence": [
+          "Sabih Khan now directs worldwide operations (DigitalDefynd, 2026)"
+        ]
+      },
+      {
+        "role": "Chief Hardware Officer, Johny Srouji",
+        "persona_type": "Technical Decision Maker",
+        "reason": "Chief Hardware Officer gates technical fit for enterprise hardware and platform integrations.",
+        "relevance_score": 92,
+        "evidence": [
+          "Johny Srouji oversees hardware engineering; Craig Federighi leads AI initiatives (DigitalDefynd)"
+        ]
+      }
+    ],
+    "why_now_analysis": {
+      "score": 82,
+      "summary": "Apple's aggressive 2026 AI-native wearable roadmap and the recent (July 2026) expansion of its Broadcom custom-silicon partnership create a narrow procurement and partnership window as the company ramps up R&D and supplier engagement ahead of product launches. The combination of high-strength, high-confidence signals with an imminent hardware rollout makes this the optimal moment\u2014d",
+      "signals": [
+        {
+          "signal_type": "Product Launch",
+          "title": "Apple Unveils AI-Native Wearables in Development",
+          "description": "In 2026, Apple is developing three AI-native wearables \u2014 smart glasses, an AirTag-sized camera pendant, and camera-equipped AirPods \u2014 alongside its on-device Apple Intelligence platform.",
+          "date": "2026",
+          "strength": 9,
+          "confidence": 0.9,
+          "source_url": "https://startupintros.com/orgs/apple",
+          "source_name": "Startup Intros",
+          "business_impact": "Confirms active R&D spend on new AI hardware lines, signaling procurement and partnership opportunities."
+        },
+        {
+          "signal_type": "Expansion",
+          "title": "Apple, Broadcom Expand Custom Chip Partnership",
+          "description": "Apple and Broadcom are expanding their custom chip partnership, deepening joint silicon development for Apple's upcoming products.",
+          "date": "2026-07-06",
+          "strength": 8,
+          "confidence": 0.85,
+          "source_url": "https://www.youtube.com/watch?v=PZqNTi9xBVY",
+          "source_name": "Bloomberg Tech",
+          "business_impact": "Signals integrated chip design work and potential supplier/partner engagement for custom silicon."
+        }
+      ]
+    },
+    "outreach_sequence": [
+      {
+        "step_number": 1,
+        "channel": "email",
+        "subject": "Apple's 2026 AI wearables & silicon complexity",
+        "body": "Srouji-san,\n\nWith the 2026 AI-native wearables roadmap (smart glasses, camera pendant, AirPods) now in active development, your team is juggling a significant surge in on-device silicon complexity.\n\nI help hardware leaders integrate enterprise solutions ahead of these launches without disrupting the walled-garden security model.\n\nWorth a 10-minute chat to see if there's a fit?"
+      },
+      {
+        "step_number": 2,
+        "channel": "linkedin",
+        "subject": null,
+        "body": "Hi Srouji-san, saw the July Broadcom chip expansion and the 2026 AI wearables push. Connecting as I work with hardware teams scaling enterprise ops for new silicon rollouts."
+      },
+      {
+        "step_number": 3,
+        "channel": "email",
+        "subject": "10-min sync re: 2026 hardware rollout",
+        "body": "Srouji-san,\n\nJust following up on my note about supporting your 2026 AI wearable launches.\n\nCould we grab 10 minutes next week? No deck, just a quick alignment on operational goals for the new hardware lines."
+      }
+    ],
+    "business_signals": [
+      {
+        "signal_type": "Product Launch",
+        "title": "Apple Unveils AI-Native Wearables in Development",
+        "description": "In 2026, Apple is developing three AI-native wearables \u2014 smart glasses, an AirTag-sized camera pendant, and camera-equipped AirPods \u2014 alongside its on-device Apple Intelligence platform.",
+        "date": "2026",
+        "strength": 9,
+        "confidence": 0.9,
+        "source_url": "https://startupintros.com/orgs/apple",
+        "source_name": "Startup Intros",
+        "business_impact": "Confirms active R&D spend on new AI hardware lines, signaling procurement and partnership opportunities."
+      },
+      {
+        "signal_type": "Expansion",
+        "title": "Apple, Broadcom Expand Custom Chip Partnership",
+        "description": "Apple and Broadcom are expanding their custom chip partnership, deepening joint silicon development for Apple's upcoming products.",
+        "date": "2026-07-06",
+        "strength": 8,
+        "confidence": 0.85,
+        "source_url": "https://www.youtube.com/watch?v=PZqNTi9xBVY",
+        "source_name": "Bloomberg Tech",
+        "business_impact": "Signals integrated chip design work and potential supplier/partner engagement for custom silicon."
+      }
+    ],
+    "opportunity_score": 82,
+    "agent_executions": {
+      "research_account": {
+        "agent_name": "research_account",
+        "status": "completed",
+        "started_at": "2026-10-09T20:38:25.529172+00:00",
+        "completed_at": "2026-10-09T20:38:32.664237+00:00",
+        "duration_ms": 7135.055300022941,
+        "confidence": 0.96
+      },
+      "detect_signals": {
+        "agent_name": "detect_signals",
+        "status": "completed",
+        "started_at": "2026-10-09T20:38:32.666535+00:00",
+        "completed_at": "2026-10-09T20:38:37.249598+00:00",
+        "duration_ms": 4583.037600037642,
+        "confidence": 0.94
+      },
+      "detect_personas": {
+        "agent_name": "detect_personas",
+        "status": "completed",
+        "started_at": "2026-10-09T20:38:37.250558+00:00",
+        "completed_at": "2026-10-09T20:38:41.283255+00:00",
+        "duration_ms": 4032.6936000492424,
+        "confidence": 0.92
+      },
+      "synthesize_intelligence": {
+        "agent_name": "synthesize_intelligence",
+        "status": "completed",
+        "started_at": "2026-10-09T20:38:41.284316+00:00",
+        "completed_at": "2026-10-09T20:38:43.781690+00:00",
+        "duration_ms": 2497.3676000372507,
+        "confidence": 0.95
+      },
+      "detect_why_now": {
+        "agent_name": "detect_why_now",
+        "status": "completed",
+        "started_at": "2026-10-09T20:38:43.782887+00:00",
+        "completed_at": "2026-10-09T20:38:54.502365+00:00",
+        "duration_ms": 10719.473799981643,
+        "confidence": 0.92
+      },
+      "generate_outreach": {
+        "agent_name": "generate_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T20:38:54.503397+00:00",
+        "completed_at": "2026-10-09T20:38:56.607305+00:00",
+        "duration_ms": 2103.9011999964714,
+        "confidence": 0.93
+      },
+      "critique_outreach": {
+        "agent_name": "critique_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T20:38:56.608660+00:00",
+        "completed_at": "2026-10-09T20:39:20.437847+00:00",
+        "duration_ms": 23829.182400018908,
+        "confidence": 0.96
+      },
+      "human_approval": {
+        "agent_name": "human_approval",
+        "status": "completed",
+        "started_at": "2026-10-09T20:39:20.438829+00:00",
+        "completed_at": "2026-10-09T20:39:20.739515+00:00",
+        "duration_ms": 300.67799997050315,
+        "confidence": 1.0
+      }
+    },
+    "id": "crm_d4ca6b0f65",
+    "synced_at": "2026-10-09T20:39:21.041410+00:00"
+  },
+  {
+    "company_name": "Apple",
+    "industry": "Consumer Technology / Personal Computing & Mobile Devices",
+    "summary": "Apple is a $4.92T consumer hardware and services giant accelerating AI infrastructure with a $500B U.S. investment and 20,000 new R&D jobs. The core opportunity lies in partnering with Apple's enterprise team to supply AI-ready solutions for its expanding corporate device ecosystem.",
+    "key_personas": [
+      {
+        "role": "Chief Hardware Officer (Johny Srouji)",
+        "persona_type": "Technical Decision Maker",
+        "reason": "Consolidates all hardware engineering; controls technical standards and platform architecture for enterprise hardware solutions.",
+        "relevance_score": 95,
+        "evidence": [
+          "Johny Srouji appointed Chief Hardware Officer"
+        ]
+      },
+      {
+        "role": "Chief Financial Officer (Kevan Parekh)",
+        "persona_type": "Economic Buyer",
+        "reason": "CFO controls capital allocation and budget approval for all enterprise software and infrastructure investments.",
+        "relevance_score": 90,
+        "evidence": [
+          "Kevan Parekh leads finance as CFO"
+        ]
+      }
+    ],
+    "why_now_analysis": {
+      "score": 82,
+      "summary": "Apple's freshly announced $500B U.S. investment, including a 250,000-sq-ft Houston AI server facility opening by 2026, creates a time-bound procurement window where domestic infrastructure partners can be locked in before the facility goes live. Simultaneously, Apple's confirmed Q2 FY2026 enterprise device refresh to iPhone 17 and Mac-based AI development teams signals an immediate",
+      "signals": [
+        {
+          "signal_type": "Funding",
+          "title": "Apple Commits $500B U.S. Investment, 20,000 Hires",
+          "description": "Apple announced a $500B U.S. investment plan, including 20,000 jobs and a new 250,000-sq-ft Houston AI server manufacturing facility opening by 2026.",
+          "date": "2026",
+          "strength": 9,
+          "confidence": 0.9,
+          "source_url": "https://www.rdworldonline.com/apple-commits-500b-plan-for-u-s-investment-adding-20000-mostly-rd-jobs",
+          "source_name": "R&D World Online",
+          "business_impact": "Signals appetite for domestic AI infrastructure and partnerships, a fresh enterprise-sales entry point."
+        },
+        {
+          "signal_type": "Expansion",
+          "title": "Apple Enterprise Expansion Drives Marsh Device Refresh",
+          "description": "In Q2 FY2026, Marsh deployed a large-scale corporate device refresh to iPhone 17 and adopted Macs for internal AI development.",
+          "date": "2026",
+          "strength": 8,
+          "confidence": 0.85,
+          "source_url": "https://finance.yahoo.com/technology/articles/apples-expanding-enterprise-footprint-boost-122200602.html",
+          "source_name": "Yahoo Finance",
+          "business_impact": "Confirms priority on secure, AI-ready enterprise tech; ideal hook for enterprise-solutions vendors."
+        }
+      ]
+    },
+    "outreach_sequence": [
+      {
+        "step_number": 1,
+        "channel": "email",
+        "subject": "Houston AI facility \u2014 2026 infrastructure window",
+        "body": "Johny,\n\nCongrats on the Houston AI server facility hitting the ground by 2026. With 20,000 new R&D roles and a $500B U.S. push, your team is scaling hardware infrastructure at a pace that demands domestic partners locked in before go-live.\n\nWe help enterprise hardware teams secure AI-ready supply chains in under 90 days. Worth a 15-minute look before Q3 procurement closes?\n\nBest,\n[Your Name]"
+      },
+      {
+        "step_number": 2,
+        "channel": "linkedin",
+        "subject": null,
+        "body": "Johny, congrats on the $500B U.S. plan and the 250k-sq-ft Houston AI server facility. Building domestic AI infrastructure partners for 2026 go-live\u2014worth connecting?"
+      },
+      {
+        "step_number": 3,
+        "channel": "email",
+        "subject": "Quick follow-up \u2014 Houston AI facility",
+        "body": "Johny,\n\nFollowing up on the Houston AI server facility. Since your enterprise Mac AI teams are already live on iPhone 17 refresh, the procurement clock for 2026 infrastructure is ticking.\n\nCan I send a 1-page case study on AI-ready hardware sourcing? No call needed\u2014just forward if it fits.\n\nBest,\n[Your Name]"
+      }
+    ],
+    "business_signals": [
+      {
+        "signal_type": "Funding",
+        "title": "Apple Commits $500B U.S. Investment, 20,000 Hires",
+        "description": "Apple announced a $500B U.S. investment plan, including 20,000 jobs and a new 250,000-sq-ft Houston AI server manufacturing facility opening by 2026.",
+        "date": "2026",
+        "strength": 9,
+        "confidence": 0.9,
+        "source_url": "https://www.rdworldonline.com/apple-commits-500b-plan-for-u-s-investment-adding-20000-mostly-rd-jobs",
+        "source_name": "R&D World Online",
+        "business_impact": "Signals appetite for domestic AI infrastructure and partnerships, a fresh enterprise-sales entry point."
+      },
+      {
+        "signal_type": "Expansion",
+        "title": "Apple Enterprise Expansion Drives Marsh Device Refresh",
+        "description": "In Q2 FY2026, Marsh deployed a large-scale corporate device refresh to iPhone 17 and adopted Macs for internal AI development.",
+        "date": "2026",
+        "strength": 8,
+        "confidence": 0.85,
+        "source_url": "https://finance.yahoo.com/technology/articles/apples-expanding-enterprise-footprint-boost-122200602.html",
+        "source_name": "Yahoo Finance",
+        "business_impact": "Confirms priority on secure, AI-ready enterprise tech; ideal hook for enterprise-solutions vendors."
+      }
+    ],
+    "opportunity_score": 82,
+    "agent_executions": {
+      "research_account": {
+        "agent_name": "research_account",
+        "status": "completed",
+        "started_at": "2026-10-09T20:47:21.533596+00:00",
+        "completed_at": "2026-10-09T20:47:28.434679+00:00",
+        "duration_ms": 6901.050999993458,
+        "confidence": 0.96
+      },
+      "detect_signals": {
+        "agent_name": "detect_signals",
+        "status": "completed",
+        "started_at": "2026-10-09T20:47:28.435987+00:00",
+        "completed_at": "2026-10-09T20:47:33.117720+00:00",
+        "duration_ms": 4681.725400034338,
+        "confidence": 0.94
+      },
+      "detect_personas": {
+        "agent_name": "detect_personas",
+        "status": "completed",
+        "started_at": "2026-10-09T20:47:33.118895+00:00",
+        "completed_at": "2026-10-09T20:47:37.054009+00:00",
+        "duration_ms": 3935.111000027973,
+        "confidence": 0.92
+      },
+      "synthesize_intelligence": {
+        "agent_name": "synthesize_intelligence",
+        "status": "completed",
+        "started_at": "2026-10-09T20:47:37.054875+00:00",
+        "completed_at": "2026-10-09T20:47:40.183825+00:00",
+        "duration_ms": 3128.943599993363,
+        "confidence": 0.95
+      },
+      "detect_why_now": {
+        "agent_name": "detect_why_now",
+        "status": "completed",
+        "started_at": "2026-10-09T20:47:40.184969+00:00",
+        "completed_at": "2026-10-09T20:47:56.695713+00:00",
+        "duration_ms": 16510.739399993327,
+        "confidence": 0.92
+      },
+      "generate_outreach": {
+        "agent_name": "generate_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T20:47:56.696720+00:00",
+        "completed_at": "2026-10-09T20:48:05.155891+00:00",
+        "duration_ms": 8459.166300017387,
+        "confidence": 0.93
+      },
+      "critique_outreach": {
+        "agent_name": "critique_outreach",
+        "status": "completed",
+        "started_at": "2026-10-09T20:48:05.157521+00:00",
+        "completed_at": "2026-10-09T20:48:25.453220+00:00",
+        "duration_ms": 20295.696199988015,
+        "confidence": 0.96
+      },
+      "human_approval": {
+        "agent_name": "human_approval",
+        "status": "completed",
+        "started_at": "2026-10-09T20:48:25.453970+00:00",
+        "completed_at": "2026-10-09T20:48:25.754599+00:00",
+        "duration_ms": 300.6218000082299,
+        "confidence": 1.0
+      }
+    },
+    "id": "crm_1a6bca8650",
+    "synced_at": "2026-10-09T20:48:26.056182+00:00"
+  }
+]

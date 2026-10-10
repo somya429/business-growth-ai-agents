@@ -706,6 +706,31 @@ class LocalRepository(Repository):
                 "updated_at": row["updated_at"],
             }
 
+    def list_runs(self, business_id: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
+        with self._get_connection() as conn:
+            if business_id:
+                rows = conn.execute(
+                    "SELECT * FROM runs WHERE business_id = ? ORDER BY created_at DESC LIMIT ?",
+                    (business_id, limit),
+                ).fetchall()
+            else:
+                rows = conn.execute(
+                    "SELECT * FROM runs ORDER BY created_at DESC LIMIT ?",
+                    (limit,),
+                ).fetchall()
+            return [
+                {
+                    "run_id": r["run_id"],
+                    "business_id": r["business_id"],
+                    "lead_id": r["lead_id"],
+                    "status": r["status"],
+                    "state_summary": json.loads(r["state_summary"] or "{}"),
+                    "created_at": r["created_at"],
+                    "updated_at": r["updated_at"],
+                }
+                for r in rows
+            ]
+
     # -------------------------------------------------------------------------
     # Stage 2: Onboarding Sessions
     # -------------------------------------------------------------------------

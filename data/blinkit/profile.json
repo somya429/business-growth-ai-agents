@@ -1,0 +1,18 @@
+{
+  "id": "blinkit",
+  "name": "blinkit",
+  "industry": "software_saas_ai",
+  "offerings": [
+    "Autonomous workflow automation for B2B operations"
+  ],
+  "ideal_customer": "Acquire first 10 pilot enterprise customers",
+  "stage": "foundation",
+  "tone": "professional and consultative",
+  "channels": [
+    "email",
+    "linkedin"
+  ],
+  "anti_spam": {
+    "opt_out_list": []
+  }
+}

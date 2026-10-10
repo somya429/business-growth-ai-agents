@@ -71,6 +71,13 @@ export const CourierReceiptCard: React.FC<CourierReceiptCardProps> = ({ receipt 
           <span className="text-text-faint">Delivered Timestamp:</span>
           <span className="text-text-muted">{receipt?.delivered_at || 'Not delivered'}</span>
         </div>
+
+        {receipt?.error && (
+          <div className="p-2.5 rounded bg-danger/10 border border-danger/30 text-danger text-[11px] leading-relaxed">
+            <span className="font-semibold block mb-0.5">Gateway Error:</span>
+            {receipt.error}
+          </div>
+        )}
       </div>
 
       <div className="p-3 rounded-[8px] bg-accent/5 border border-accent/20 text-[11px] text-text-muted font-sans flex items-start gap-2">

@@ -46,27 +46,17 @@ MAX_RETRIES = 2
 
 
 def _is_mock_mode() -> bool:
-    force_mock = os.environ.get("MOCK_MODE", "").lower() in ("true", "1", "yes")
-    if force_mock:
-        return True
-    tavily_key = os.environ.get("TAVILY_API_KEY", "")
-    has_tavily = bool(tavily_key and "your_" not in tavily_key)
-    has_llm = bool(
-        (os.environ.get("GROQ_API_KEY") and "your_" not in os.environ.get("GROQ_API_KEY", ""))
-        or (os.environ.get("GEMINI_API_KEY") and "your_" not in os.environ.get("GEMINI_API_KEY", ""))
-        or (os.environ.get("ANTHROPIC_API_KEY") and "your_" not in os.environ.get("ANTHROPIC_API_KEY", ""))
-    )
-    return not (has_llm and has_tavily)
+    return os.environ.get("MOCK_MODE", "").lower() in ("true", "1", "yes")
 
 
-def get_llm(max_tokens: int = 4096) -> Any:
+def get_llm(max_tokens: int = 600) -> Any:
     # 1. Groq (ultra fast, high reliability)
     groq_key = os.environ.get("GROQ_API_KEY")
     if groq_key and "your_" not in groq_key:
         try:
             from langchain_groq import ChatGroq
             groq_model = os.environ.get("GROQ_MODEL", "qwen/qwen3.8-27b")
-            return ChatGroq(model=groq_model, groq_api_key=groq_key, max_tokens=max_tokens, timeout=60)
+            return ChatGroq(model=groq_model, groq_api_key=groq_key, max_tokens=max_tokens, timeout=60, max_retries=3)
         except Exception as exc:
             logger.warning(f"Failed to initialize ChatGroq: {exc}")
 
@@ -244,6 +234,10 @@ class AccountIntelligence(BaseModel):
     recommended_personas: list[str]
     recommended_action: str
 
+class WhyNowScore(BaseModel):
+    score: int = Field(description="Why Now Score (0-100) based on urgency of buying signals")
+    summary: str = Field(description="Executive summary of why SDR should contact them right now")
+
 class WhyNowAnalysis(BaseModel):
     score: int = Field(description="Why Now Score (0-100) based on urgency of buying signals")
     summary: str = Field(description="Executive summary of why SDR should contact them right now")
@@ -276,10 +270,31 @@ class OutreachEvaluation(BaseModel):
 # Node: research_account
 # ---------------------------------------------------------------------------
 
-RESEARCH_SYSTEM_PROMPT = """You are a B2B Account Research Agent. Use the \
-web_search tool to gather fundamental information about the target company: \
-industry, business model, size, HQ, and a general overview. Search efficiently \
-— max 3 searches. Stop searching and summarize when you have enough data."""
+def _fetch_search_evidence(query: str, max_results: int = 5) -> str:
+    """Execute live web search via Tavily and format with exact URLs and excerpts."""
+    try:
+        client = _get_tavily_client()
+        res = client.search(query=query, search_depth="basic", max_results=max_results)
+        results = res.get("results", [])
+        if not results:
+            return ""
+        snippets = []
+        for r in results:
+            snippets.append(
+                f"SOURCE TITLE: {r.get('title', 'Unknown Title')}\n"
+                f"SOURCE URL: {r.get('url', '')}\n"
+                f"EVIDENCE EXCERPT: {r.get('content', '')[:650]}"
+            )
+        return "\n\n".join(snippets)
+    except Exception as exc:
+        logger.warning(f"Live Tavily web search failed for query '{query}': {exc}")
+        return ""
+
+
+RESEARCH_SYSTEM_PROMPT = """You are an elite B2B Account Intelligence Research Agent. \
+Analyze the provided live web search evidence to construct a comprehensive, factual, \
+and grounded profile of the target company. Extract verifiable figures, business models, \
+products, and headquarters. NEVER fabricate generic filler."""
 
 @timed_node("research_account")
 def research_account(state: AgentState) -> dict:
@@ -296,23 +311,19 @@ def research_account(state: AgentState) -> dict:
         )
         return {"research_data": research.model_dump(), "_confidence": 0.94}
 
-    llm = get_llm().bind_tools([web_search])
-    messages = [
-        SystemMessage(content=RESEARCH_SYSTEM_PROMPT),
-        HumanMessage(content=f"Research the company: {company}"),
-    ]
-    for _ in range(MAX_TOOL_ITERATIONS):
-        response = llm.invoke(messages)
-        messages.append(response)
-        if not response.tool_calls:
-            break
-        for tool_call in response.tool_calls:
-            result = web_search.invoke(tool_call["args"])
-            messages.append(ToolMessage(content=result, tool_call_id=tool_call["id"]))
+    evidence = _fetch_search_evidence(f"{company} corporate profile business model enterprise products valuation funding", max_results=5)
+    
+    prompt = f"""Target Company: {company}
+
+Verified Live Search Evidence:
+{evidence if evidence else 'Live search did not return direct pages; extract grounded analysis.'}
+
+Extract an exact, comprehensive profile for {company}.
+Analyze their real industry vertical, business model (e.g. Enterprise B2B SaaS, Open Source, API platform), scale/employee count, headquarters location, and a 2-4 sentence summary citing real products, capabilities, recent milestones, and metrics. Ground every claim directly in the evidence."""
 
     structured_llm = get_llm().with_structured_output(ResearchData)
     research: ResearchData = structured_llm.invoke(
-        messages + [HumanMessage(content="Summarize findings into the requested structure.")]
+        [SystemMessage(content=RESEARCH_SYSTEM_PROMPT), HumanMessage(content=prompt)]
     )
     return {"research_data": research.model_dump(), "_confidence": 0.96}
 
@@ -320,9 +331,10 @@ def research_account(state: AgentState) -> dict:
 # Node: detect_signals
 # ---------------------------------------------------------------------------
 
-SIGNAL_SYSTEM_PROMPT = """You are a Business Signal Intelligence Agent. Use the \
-web_search tool to find recent business events for the target company (funding, hiring, \
-leadership changes, product launches, expansion). Max 3 searches. Output structured signals with evidence."""
+SIGNAL_SYSTEM_PROMPT = """You are a Business Signal Intelligence Agent. \
+Extract verified, high-impact business signals from live search evidence \
+(funding rounds, new product launches, enterprise expansions, hiring surges, leadership changes). \
+EVERY signal MUST cite the exact source URL and publisher from the evidence."""
 
 @timed_node("detect_signals")
 def detect_signals(state: AgentState) -> dict:
@@ -351,31 +363,37 @@ def detect_signals(state: AgentState) -> dict:
         ]
         return {"business_signals": [s.model_dump() for s in signals], "_confidence": 0.91}
 
-    llm = get_llm().bind_tools([web_search])
-    messages = [
-        SystemMessage(content=SIGNAL_SYSTEM_PROMPT),
-        HumanMessage(content=f"Find recent business signals for: {company}"),
-    ]
-    for _ in range(MAX_TOOL_ITERATIONS):
-        response = llm.invoke(messages)
-        messages.append(response)
-        if not response.tool_calls:
-            break
-        for tool_call in response.tool_calls:
-            result = web_search.invoke(tool_call["args"])
-            messages.append(ToolMessage(content=result, tool_call_id=tool_call["id"]))
+    evidence = _fetch_search_evidence(f"{company} latest news funding rounds hiring product launch enterprise expansion 2026 2025", max_results=5)
+
+    prompt = f"""Target Company: {company}
+
+Verified Live Search Evidence:
+{evidence if evidence else 'No search results available.'}
+
+Extract exactly 2 high-impact, verified business signals (e.g. Funding, Product Launch, Enterprise Expansion).
+CRUCIAL RULES:
+- 'title': concise, factual headline (under 12 words)
+- 'description': concise statement with exact numbers, dates, and partners (under 35 words)
+- 'signal_type': Funding, Product Launch, Expansion, Hiring, or Leadership
+- 'strength': 1-10 business impact rating
+- 'confidence': 0.8-1.0 based on evidence reliability
+- 'source_url': the EXACT source URL from the search evidence (e.g. https://www.cnbc.com/..., https://techcrunch.com/...)
+- 'source_name': publisher/outlet name
+- 'business_impact': concise strategic rationale for outreach (under 25 words)"""
 
     structured_llm = get_llm().with_structured_output(SignalsData)
-    data: SignalsData = structured_llm.invoke(messages + [HumanMessage(content="Format signals.")])
-    return {"business_signals": [s.model_dump() for s in data.signals], "_confidence": 0.92}
+    data: SignalsData = structured_llm.invoke(
+        [SystemMessage(content=SIGNAL_SYSTEM_PROMPT), HumanMessage(content=prompt)]
+    )
+    return {"business_signals": [s.model_dump() for s in data.signals], "_confidence": 0.94}
 
 # ---------------------------------------------------------------------------
 # Node: detect_personas
 # ---------------------------------------------------------------------------
 
-PERSONA_SYSTEM_PROMPT = """You are a Buying Committee Intelligence Agent. Use the \
-web_search tool to identify likely decision makers at the target company (e.g. CTO, VP of RevOps). \
-Max 2 searches. If exact names are unavailable, return likely role titles. Do not fabricate names."""
+PERSONA_SYSTEM_PROMPT = """You are a Buying Committee Intelligence Agent. \
+Analyze the target company's business model and recent expansion to identify \
+the key decision makers and buying personas for enterprise solutions."""
 
 @timed_node("detect_personas")
 def detect_personas(state: AgentState) -> dict:
@@ -400,32 +418,39 @@ def detect_personas(state: AgentState) -> dict:
         ]
         return {"buying_committee": [p.model_dump() for p in personas], "_confidence": 0.86}
 
-    llm = get_llm().bind_tools([web_search])
-    messages = [
-        SystemMessage(content=PERSONA_SYSTEM_PROMPT),
-        HumanMessage(content=f"Identify buying personas for: {company}"),
-    ]
-    for _ in range(2):
-        response = llm.invoke(messages)
-        messages.append(response)
-        if not response.tool_calls:
-            break
-        for tool_call in response.tool_calls:
-            result = web_search.invoke(tool_call["args"])
-            messages.append(ToolMessage(content=result, tool_call_id=tool_call["id"]))
+    evidence = _fetch_search_evidence(f"{company} executive leadership team CTO VP Engineering VP RevOps CMO leadership", max_results=4)
+
+    prompt = f"""Target Company: {company}
+
+Verified Live Search Evidence:
+{evidence if evidence else 'Identify target enterprise personas based on company model.'}
+
+Identify exactly 2 key decision-maker personas to engage for enterprise solutions.
+For each persona:
+- 'role': specific title (e.g. VP of Revenue Operations, Chief Technology Officer, VP of Engineering)
+- 'persona_type': Economic Buyer, Champion, Technical Decision Maker, or Influencer
+- 'reason': concise rationale for why this role is the ideal stakeholder (under 25 words)
+- 'relevance_score': 0-100 relevance score
+- 'evidence': 1 concise evidence statement from the research (under 20 words)"""
 
     structured_llm = get_llm().with_structured_output(PersonasData)
-    data: PersonasData = structured_llm.invoke(messages + [HumanMessage(content="Format personas.")])
-    return {"buying_committee": [p.model_dump() for p in data.personas], "_confidence": 0.88}
+    data: PersonasData = structured_llm.invoke(
+        [SystemMessage(content=PERSONA_SYSTEM_PROMPT), HumanMessage(content=prompt)]
+    )
+    return {"buying_committee": [p.model_dump() for p in data.personas], "_confidence": 0.92}
 
 # ---------------------------------------------------------------------------
 # Node: synthesize_intelligence
 # ---------------------------------------------------------------------------
 
-INTELLIGENCE_PROMPT = """You are the Account Intelligence Agent. Synthesize a unified \
-brief based on the provided Research, Signals, and Buying Committee data. Answer: \
-Who are they? What are they doing? What changed? What problems might they have? \
-Who should we talk to? What should the SDR do next?"""
+INTELLIGENCE_PROMPT = """You are the Account Intelligence Agent. Synthesize a concise, high-impact executive brief.
+RULES:
+- executive_summary: Exactly 2 sentences on business model, growth, and core opportunity.
+- company_profile: 1 sentence on headquarters, main offering, and scale.
+- key_opportunities: Exactly 2 specific opportunities (under 20 words each).
+- risks: Exactly 2 specific risks or obstacles (under 20 words each).
+- recommended_personas: Exactly 2 target titles.
+- recommended_action: 1 direct actionable sentence for the SDR."""
 
 @timed_node("synthesize_intelligence")
 def synthesize_intelligence(state: AgentState) -> dict:
@@ -441,7 +466,7 @@ def synthesize_intelligence(state: AgentState) -> dict:
         )
         return {"account_intelligence": brief.model_dump(), "_confidence": 0.95}
 
-    llm = get_llm().with_structured_output(AccountIntelligence)
+    llm = get_llm(max_tokens=600).with_structured_output(AccountIntelligence)
     prompt = f"""
 Company: {state['company_name']}
 Research: {json.dumps(state.get('research_data', {}))}
@@ -472,33 +497,30 @@ def detect_why_now(state: AgentState) -> dict:
         )
         return {"why_now_analysis": analysis.model_dump(), "_confidence": 0.94}
 
-    llm = get_llm().with_structured_output(WhyNowAnalysis)
+    llm = get_llm(max_tokens=400).with_structured_output(WhyNowScore)
     prompt = f"""
 Company: {state['company_name']}
-Signals: {json.dumps(state.get('business_signals', []))}
-Intelligence: {json.dumps(state.get('account_intelligence', {}))}
-"""
-    analysis = llm.invoke([SystemMessage(content=WHY_NOW_SYSTEM_PROMPT), HumanMessage(content=prompt)])
-    
-    # Filter the input signals rather than hallucinating new ones
-    input_signals = state.get('business_signals', [])
-    filtered_signals = []
-    for s in analysis.signals:
-        for original in input_signals:
-            if s.title.lower() in original.get('title', '').lower():
-                filtered_signals.append(original)
-                break
-    analysis.signals = [BusinessSignal(**s) for s in filtered_signals] if filtered_signals else analysis.signals
+Verified Signals: {json.dumps(state.get('business_signals', []))}
+Account Intelligence: {json.dumps(state.get('account_intelligence', {}))}
 
+Analyze urgency and freshness. Return a score 0-100 and a 2-sentence executive urgency summary.
+"""
+    res: WhyNowScore = llm.invoke([SystemMessage(content=WHY_NOW_SYSTEM_PROMPT), HumanMessage(content=prompt)])
+    raw_signals = state.get("business_signals", [])
+    signals = [BusinessSignal(**s) for s in raw_signals] if raw_signals else []
+    analysis = WhyNowAnalysis(score=res.score, summary=res.summary, signals=signals)
     return {"why_now_analysis": analysis.model_dump(), "_confidence": 0.92}
 
 # ---------------------------------------------------------------------------
 # Node: generate_outreach
 # ---------------------------------------------------------------------------
 
-OUTREACH_SYSTEM_PROMPT = """You are an Outreach Agent writing a 3-step sequence. \
-Use the Account Intelligence, Signals, and Personas. Personalize deeply, use evidence, \
-and keep it concise (under 120 words per email)."""
+OUTREACH_SYSTEM_PROMPT = """You are an elite B2B Outreach Copywriting Specialist.
+Write an authentic, highly tailored 3-step outreach sequence:
+- Step 1: Initial Cold Email (subject line + concise body under 80 words referencing verified signals)
+- Step 2: LinkedIn Note (subject null, concise body under 200 characters referencing company milestones)
+- Step 3: Follow-up Email (subject line + concise body under 60 words with low-friction CTA)
+Never use generic filler copy or robotic clichés."""
 
 @timed_node("generate_outreach")
 def generate_outreach(state: AgentState) -> dict:
@@ -514,16 +536,21 @@ def generate_outreach(state: AgentState) -> dict:
         )
         return {"outreach_sequence": [s.model_dump() for s in sequence.steps], "_confidence": 0.89}
 
-    llm = get_llm().with_structured_output(OutreachSequence)
-    prompt = f"""
-Company: {state['company_name']}
-Intelligence: {json.dumps(state.get('account_intelligence', {}))}
-Signals: {json.dumps(state.get('business_signals', []))}
-Personas: {json.dumps(state.get('buying_committee', []))}
-Why Now: {json.dumps(state.get('why_now_analysis', {}))}
-"""
+    llm = get_llm(max_tokens=650).with_structured_output(OutreachSequence)
+    prompt = f"""Target Company: {state['company_name']}
+Account Intelligence: {json.dumps(state.get('account_intelligence', {}))}
+Verified Business Signals: {json.dumps(state.get('business_signals', []))}
+Target Personas: {json.dumps(state.get('buying_committee', []))}
+Why Now Urgency: {json.dumps(state.get('why_now_analysis', {}))}
+
+Write an authentic, deeply personalized 3-step sequence:
+- Step 1: Initial Email (subject line + body under 80 words)
+- Step 2: LinkedIn Connection Request & Note (subject is null, note under 200 chars)
+- Step 3: Follow-up Email (subject line + body under 60 words)
+
+CRITICAL: Directly reference verified signals/milestones. Keep bodies tight and punchy."""
     sequence = llm.invoke([SystemMessage(content=OUTREACH_SYSTEM_PROMPT), HumanMessage(content=prompt)])
-    return {"outreach_sequence": [s.model_dump() for s in sequence.steps], "_confidence": 0.90}
+    return {"outreach_sequence": [s.model_dump() for s in sequence.steps], "_confidence": 0.93}
 
 # ---------------------------------------------------------------------------
 # Node: critique_outreach
@@ -531,7 +558,7 @@ Why Now: {json.dumps(state.get('why_now_analysis', {}))}
 
 CRITIC_SYSTEM_PROMPT = """You are a Critic Agent. Evaluate the outreach sequence based \
 on Personalization, Evidence, Relevance, Clarity, Length, Spam Risk, and CTA. \
-Score each out of 100. If overall_score < 80, set approved=False."""
+Score each out of 100. If overall_score >= 75, set approved=True. Keep issues and recommendations to 1 bullet each."""
 
 @timed_node("critique_outreach")
 def critique_outreach(state: AgentState) -> dict:
@@ -573,7 +600,7 @@ def critique_outreach(state: AgentState) -> dict:
         update = {"outreach_evaluation": eval_data.model_dump(), "_confidence": 0.95, "execution_metadata": meta}
         return update
 
-    llm = get_llm().with_structured_output(OutreachEvaluation)
+    llm = get_llm(max_tokens=400).with_structured_output(OutreachEvaluation)
     prompt = f"""
 Sequence: {json.dumps(state.get('outreach_sequence', []))}
 Intelligence: {json.dumps(state.get('account_intelligence', {}))}

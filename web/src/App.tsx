@@ -6,9 +6,15 @@ import { AgentDrawer } from './components/layout/AgentDrawer';
 import { PageShell } from './components/PageShell';
 
 // First-run Welcome & Overview Page
+import { GrowthXLandingPage } from './pages/GrowthXLandingPage';
 import { WelcomePage } from './pages/WelcomePage';
 import { PlanPage } from './pages/PlanPage';
 import { TasksPage } from './pages/TasksPage';
+import { ApexCommandPage } from './pages/ApexCommandPage';
+
+// Buddy Mascot & System Context
+import { BuddyProvider } from './buddy/BuddyContext';
+import { Buddy } from './buddy/Buddy';
 
 // Comprehensive Agent Control Pages
 import { MissionControlPage } from './features/mission-control/MissionControlPage';
@@ -47,18 +53,47 @@ const ScrollToTop: React.FC = () => {
 export const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <HashRouter>
-        <ScrollToTop />
-        <ToastContainer />
-        <AgentDrawer />
-        <Routes>
-          {/* Root: First-run Welcome & Project Overview Page */}
-          <Route path="/" element={<WelcomePage />} />
-          <Route path="/welcome" element={<WelcomePage />} />
+      <BuddyProvider>
+        <HashRouter>
+          <ScrollToTop />
+          <ToastContainer />
+          <AgentDrawer />
+          <Buddy />
+          <Routes>
+            {/* Root: GrowthX Landing Page & Overview */}
+            <Route path="/" element={<GrowthXLandingPage />} />
+            <Route path="/home" element={<GrowthXLandingPage />} />
+            <Route path="/welcome" element={<WelcomePage />} />
 
           {/* Phase Planning & Task Graph */}
           <Route path="/plan" element={<PlanPage />} />
           <Route path="/tasks" element={<TasksPage />} />
+
+          {/* Autonomous Head Agent Orchestrator & Executive Command */}
+          <Route
+            path="/command"
+            element={
+              <PageShell title="Apex Executive Command — Verity">
+                <ApexCommandPage />
+              </PageShell>
+            }
+          />
+          <Route
+            path="/apex"
+            element={
+              <PageShell title="Apex Executive Command — Verity">
+                <ApexCommandPage />
+              </PageShell>
+            }
+          />
+          <Route
+            path="/chief"
+            element={
+              <PageShell title="Apex Executive Command — Verity">
+                <ApexCommandPage />
+              </PageShell>
+            }
+          />
 
           {/* Orchestrator Command Center */}
           <Route
@@ -160,12 +195,13 @@ export const App: React.FC = () => {
           <Route path="/trust" element={<TrustPage />} />
           <Route path="/industries" element={<IndustriesPage />} />
 
-          {/* Fallback to Welcome */}
+          {/* Fallback to GrowthX Landing Page */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </HashRouter>
-    </QueryClientProvider>
-  );
+    </BuddyProvider>
+  </QueryClientProvider>
+);
 };
 
 export default App;

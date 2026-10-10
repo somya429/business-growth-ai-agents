@@ -97,6 +97,28 @@ def load_profile_node(state: GrowthState) -> dict[str, Any]:
         if not lead:
             lead = leads[0]
 
+    # If no lead exists for this business yet, generate an initial ICP prospect lead
+    if not lead or not lead.get("email"):
+        import re
+        biz_name = profile.get("name") or business_id
+        lead_suffix = re.sub(r"[^a-z0-9]", "", business_id.lower())[:8] or "prospect"
+        candidate_lead = {
+            "id": f"lead_{lead_suffix}_1",
+            "business_id": business_id,
+            "name": f"Growth Partner ({biz_name})",
+            "company": f"{biz_name} Target Enterprise",
+            "email": f"partner@{lead_suffix}.target.example",
+            "industry": profile.get("industry") or "Retail & Technology",
+            "qualification_notes": f"Target account aligned with ICP: {profile.get('ideal_customer', 'Growth leaders and logistics partners')}",
+            "status": "new",
+        }
+        if hasattr(repo, "save_lead"):
+            try:
+                repo.save_lead(business_id, candidate_lead)
+            except Exception:
+                pass
+        lead = candidate_lead
+
     # Memory retrieval: past outcomes and insights for this business
     past_outcomes = repo.get_outcomes(business_id)
     past_insights = repo.get_insights(business_id)

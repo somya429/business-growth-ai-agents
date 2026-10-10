@@ -1,0 +1,382 @@
+{
+  "saas": {
+    "id": "wplan_3a1aaa30",
+    "business_id": "saas",
+    "business_name": "CloudPulse Systems",
+    "industry": "B2B SaaS / DevOps & Observability",
+    "week_number": 1,
+    "focus_goal": "Accelerate High-Intent Outbound & Pipeline Seeding",
+    "problem_id": "demand",
+    "phase": "foundation",
+    "strategic_audit": {
+      "audited_by": "Atlas (Chief Strategy Architect)",
+      "verdict": "APPROVED & CALIBRATED",
+      "coherence_score": 97,
+      "summary": "Atlas Chief Strategy Planner has evaluated the 12 operational items across 7 sprint days for CloudPulse Systems. The plan rigorously coordinates 12 specialized agents (Atlas, Cadence, Compass, Courier, Echo, Herald, Muse, Quill, Sage, Scout, Veritas, Warden). All outbound actions are gated behind Veritas claim verification and Warden anti-spam checks.",
+      "audit_checks": [
+        {
+          "check": "Strategic Coherence & Goal Alignment",
+          "status": "passed",
+          "detail": "All daily sprints directly address core challenge 'Accelerate High-Intent Outbound & Pipeline Seeding' within the 'foundation' phase."
+        },
+        {
+          "check": "Ground Truth & Proof Asset Gate",
+          "status": "passed",
+          "detail": "Wednesday Veritas audit prevents any unsubstantiated or hallucinated claims from entering Thursday drafts."
+        },
+        {
+          "check": "Unit Economics & CAC Feasibility",
+          "status": "passed",
+          "detail": "Compass establishes explicit margin guardrails on Monday before compute or outreach capital is allocated."
+        },
+        {
+          "check": "Compliance, Anti-Spam & Quiet Hours",
+          "status": "passed",
+          "detail": "Warden verifies sender reputation, frequency limits, and time-zone quiet hours before Friday dispatch."
+        },
+        {
+          "check": "Human-in-the-Loop Consensus Enforcement",
+          "status": "passed",
+          "detail": "Courier is strictly configured with 'admin_required' approval policy. Nothing leaves without human sign-off."
+        }
+      ],
+      "strategic_directives": [
+        "Maintain focus on verified ICP boundaries; do not expand into unvalidated segments during this week.",
+        "Ensure Wednesday Veritas audit is completed before reviewing Thursday Quill copy.",
+        "Human review scheduled for Friday morning to inspect Courier drafts before dispatch."
+      ],
+      "audited_at": "2026-10-09T22:39:54.179996+00:00"
+    },
+    "days": [
+      {
+        "day": "Monday",
+        "day_number": 1,
+        "theme": "Strategic Foundation & Unit Economics",
+        "assigned_agents": [
+          "Atlas",
+          "Compass"
+        ],
+        "items": [
+          {
+            "id": "todo_70084290",
+            "day": "Monday",
+            "day_number": 1,
+            "assigned_agent": "Atlas",
+            "title": "Strategic Foundation & Weekly ICP Boundary Definition",
+            "objective": "Formulate the high-leverage weekly operational directives for CloudPulse Systems focused on solving: Accelerate High-Intent Outbound & Pipeline Seeding.",
+            "deliverable": "ICP Architecture Document & Milestone Roadmap",
+            "acceptance_criteria": [
+              "Explicit revenue and qualification thresholds defined",
+              "Target company employee tiers specified (100-2,000 employees)",
+              "Atlas state machine phase boundaries calibrated"
+            ],
+            "completed": false,
+            "auto_ticked": false,
+            "completed_by": null,
+            "completed_at": null,
+            "agent_output": null,
+            "task_id": null,
+            "priority": "critical"
+          },
+          {
+            "id": "todo_2a6c699e",
+            "day": "Monday",
+            "day_number": 1,
+            "assigned_agent": "Compass",
+            "title": "Unit Economics & CAC Feasibility Thresholds",
+            "objective": "Model target customer acquisition cost ceiling and minimum contract value boundaries before compute spend.",
+            "deliverable": "Unit Economics Sensitivity Sheet",
+            "acceptance_criteria": [
+              "Target CAC modeled under $450/SQL",
+              "Gross margin guardrail set at >= 78%",
+              "Minimum contract value hurdle verified"
+            ],
+            "completed": false,
+            "auto_ticked": false,
+            "completed_by": null,
+            "completed_at": null,
+            "agent_output": null,
+            "task_id": null,
+            "priority": "high"
+          }
+        ]
+      },
+      {
+        "day": "Tuesday",
+        "day_number": 2,
+        "theme": "Market Intelligence & Lead Timing",
+        "assigned_agents": [
+          "Scout",
+          "Cadence"
+        ],
+        "items": [
+          {
+            "id": "todo_aae4c200",
+            "day": "Tuesday",
+            "day_number": 2,
+            "assigned_agent": "Scout",
+            "title": "Competitor Vulnerability Audit & Target Account Discovery",
+            "objective": "Scan live signals in B2B SaaS / DevOps & Observability for accounts experiencing infrastructure migration or tooling friction.",
+            "deliverable": "15 Verified High-Fit Target Accounts Ledger",
+            "acceptance_criteria": [
+              "At least 10 high-fit enterprise accounts verified",
+              "Key technical stakeholders identified (VP Eng, Head of Infra)",
+              "Competitor displacement hooks identified"
+            ],
+            "completed": false,
+            "auto_ticked": false,
+            "completed_by": null,
+            "completed_at": null,
+            "agent_output": null,
+            "task_id": null,
+            "priority": "high"
+          },
+          {
+            "id": "todo_40e0be38",
+            "day": "Tuesday",
+            "day_number": 2,
+            "assigned_agent": "Cadence",
+            "title": "Account Timing & Buying Intent Scoring",
+            "objective": "Evaluate timing signals, hiring velocity, and microservices triggers to score accounts 0-100.",
+            "deliverable": "Ranked Prospect Intent Priority Matrix",
+            "acceptance_criteria": [
+              "All accounts assigned numerical priority score",
+              "Clear ACT/WAIT/DISQUALIFY rationale documented",
+              "Outreach timing window assigned"
+            ],
+            "completed": false,
+            "auto_ticked": false,
+            "completed_by": null,
+            "completed_at": null,
+            "agent_output": null,
+            "task_id": null,
+            "priority": "high"
+          }
+        ]
+      },
+      {
+        "day": "Wednesday",
+        "day_number": 3,
+        "theme": "Proof Grounding & Value Messaging",
+        "assigned_agents": [
+          "Veritas",
+          "Muse"
+        ],
+        "items": [
+          {
+            "id": "todo_2a371dfc",
+            "day": "Wednesday",
+            "day_number": 3,
+            "assigned_agent": "Veritas",
+            "title": "Proof Asset Audit & Claim Ground Truth Verification",
+            "objective": "Audit case studies, benchmark claims, and customer quotes. Zero unverified claims permitted.",
+            "deliverable": "Verified Claims Ledger & Risk Flag Report",
+            "acceptance_criteria": [
+              "100% of factual assertions referenced against ground truth",
+              "Numerical claims verified against telemetry logs",
+              "Zero unsupported claims allowed to pass to copywriting"
+            ],
+            "completed": false,
+            "auto_ticked": false,
+            "completed_by": null,
+            "completed_at": null,
+            "agent_output": null,
+            "task_id": null,
+            "priority": "critical"
+          },
+          {
+            "id": "todo_caa50b2b",
+            "day": "Wednesday",
+            "day_number": 3,
+            "assigned_agent": "Muse",
+            "title": "Value Proposition Pillars & Persona Messaging Guide",
+            "objective": "Craft core messaging pillars strictly referencing Veritas verified proof assets.",
+            "deliverable": "Strategic Messaging Architecture & Objection Matrix",
+            "acceptance_criteria": [
+              "3 core value pillars tailored to DevOps leaders",
+              "Objection handling angles documented for common friction points",
+              "Tone calibrated to senior technical decision-makers"
+            ],
+            "completed": false,
+            "auto_ticked": false,
+            "completed_by": null,
+            "completed_at": null,
+            "agent_output": null,
+            "task_id": null,
+            "priority": "high"
+          }
+        ]
+      },
+      {
+        "day": "Thursday",
+        "day_number": 4,
+        "theme": "Campaign Copy & Experiment Synthesis",
+        "assigned_agents": [
+          "Quill",
+          "Herald"
+        ],
+        "items": [
+          {
+            "id": "todo_4504865f",
+            "day": "Thursday",
+            "day_number": 4,
+            "assigned_agent": "Quill",
+            "title": "Personalized High-Conversion Outreach Copywriting",
+            "objective": "Generate tailored 3-touch outbound email sequences referencing verified pain points and ground-truth citations.",
+            "deliverable": "Multi-Touch Executive Outreach Sequence",
+            "acceptance_criteria": [
+              "Concise, high-clarity copy under 120 words per email",
+              "One clear, frictionless call to action",
+              "Unsubscribe and opt-out mechanism built-in"
+            ],
+            "completed": false,
+            "auto_ticked": false,
+            "completed_by": null,
+            "completed_at": null,
+            "agent_output": null,
+            "task_id": null,
+            "priority": "high"
+          },
+          {
+            "id": "todo_e7a08020",
+            "day": "Thursday",
+            "day_number": 4,
+            "assigned_agent": "Herald",
+            "title": "A/B Campaign Experiment Architecture",
+            "objective": "Structure message variant allocation and testing hypotheses to measure open and reply velocity.",
+            "deliverable": "Growth Experiment Design Matrix",
+            "acceptance_criteria": [
+              "Variant A and Variant B testable hypotheses registered",
+              "Statistical sample size verified against Warden caps",
+              "Success metric locked to qualified meeting conversion"
+            ],
+            "completed": false,
+            "auto_ticked": false,
+            "completed_by": null,
+            "completed_at": null,
+            "agent_output": null,
+            "task_id": null,
+            "priority": "medium"
+          }
+        ]
+      },
+      {
+        "day": "Friday",
+        "day_number": 5,
+        "theme": "Compliance Gate & Calibrated Dispatch",
+        "assigned_agents": [
+          "Warden",
+          "Courier"
+        ],
+        "items": [
+          {
+            "id": "todo_0d238d27",
+            "day": "Friday",
+            "day_number": 5,
+            "assigned_agent": "Warden",
+            "title": "Anti-Spam, Frequency Caps & Domain Protection Check",
+            "objective": "Audit staged messages against sender domain reputation policies, rate limits, and quiet hours.",
+            "deliverable": "Policy & Compliance Clearance Certificate",
+            "acceptance_criteria": [
+              "Anti-spam frequency caps verified",
+              "Timezone quiet hours enforced",
+              "Opt-out suppression lists checked"
+            ],
+            "completed": false,
+            "auto_ticked": false,
+            "completed_by": null,
+            "completed_at": null,
+            "agent_output": null,
+            "task_id": null,
+            "priority": "critical"
+          },
+          {
+            "id": "todo_fc9b4d68",
+            "day": "Friday",
+            "day_number": 5,
+            "assigned_agent": "Courier",
+            "title": "Calibrated Outbound Dispatch (Human-in-the-Loop Consensus)",
+            "objective": "Deliver verified outbound messages to approved recipients following explicit human authorization.",
+            "deliverable": "Outbound Dispatch Receipt & Lead Status Update",
+            "acceptance_criteria": [
+              "Strict mandatory admin approval required before send",
+              "Delivery gateway receipt recorded",
+              "CRM synchronization completed"
+            ],
+            "completed": false,
+            "auto_ticked": false,
+            "completed_by": null,
+            "completed_at": null,
+            "agent_output": null,
+            "task_id": null,
+            "priority": "critical"
+          }
+        ]
+      },
+      {
+        "day": "Saturday",
+        "day_number": 6,
+        "theme": "Inbound Intent Triage & Response",
+        "assigned_agents": [
+          "Echo"
+        ],
+        "items": [
+          {
+            "id": "todo_424903e3",
+            "day": "Saturday",
+            "day_number": 6,
+            "assigned_agent": "Echo",
+            "title": "Inbound Response Classification & Intent Triage",
+            "objective": "Classify incoming prospect replies, detect meeting requests vs objections, and alert human team.",
+            "deliverable": "Inbound Sentiment & Intent Triage Dossier",
+            "acceptance_criteria": [
+              "All replies categorized (interested, question, objection, unverified)",
+              "Escalation alerts dispatched for interested buyers",
+              "Draft contextual responses generated"
+            ],
+            "completed": false,
+            "auto_ticked": false,
+            "completed_by": null,
+            "completed_at": null,
+            "agent_output": null,
+            "task_id": null,
+            "priority": "high"
+          }
+        ]
+      },
+      {
+        "day": "Sunday",
+        "day_number": 7,
+        "theme": "Weekly Retrospective & Pattern Learning",
+        "assigned_agents": [
+          "Sage"
+        ],
+        "items": [
+          {
+            "id": "todo_fe3f0c78",
+            "day": "Sunday",
+            "day_number": 7,
+            "assigned_agent": "Sage",
+            "title": "Weekly Operations Retrospective & Learning Synthesis",
+            "objective": "Synthesize win/loss patterns, reply metrics, and deliver calibrated strategy priors for next week.",
+            "deliverable": "Weekly Operational Intelligence Briefing",
+            "acceptance_criteria": [
+              "Calculated reply rate and interest velocity",
+              "At least 2 concrete strategic optimizations extracted",
+              "Priors updated for next week's Atlas plan"
+            ],
+            "completed": false,
+            "auto_ticked": false,
+            "completed_by": null,
+            "completed_at": null,
+            "agent_output": null,
+            "task_id": null,
+            "priority": "medium"
+          }
+        ]
+      }
+    ],
+    "created_at": "2026-10-09T22:39:54.180060+00:00",
+    "updated_at": "2026-10-09T22:39:54.180064+00:00"
+  }
+}

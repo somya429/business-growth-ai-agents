@@ -35,7 +35,7 @@ LEGAL_TRANSITIONS: dict[TaskStatus, set[TaskStatus]] = {
         "paused",
         "cancelled",
     },
-    "blocked": {"planned", "assigned", "running", "cancelled"},
+    "blocked": {"planned", "assigned", "running", "executing", "cancelled"},
     "client_review": {"approved", "failed", "running", "cancelled"},
     "admin_approval": {"approved", "failed", "running", "cancelled"},
     "approved": {"executing", "completed", "failed", "cancelled"},
@@ -84,6 +84,12 @@ def transition_task(
             raise ValueError(f"Task '{target}' not found.")
     else:
         t_obj = target
+
+    if isinstance(t_obj, dict):
+        try:
+            t_obj = Task.model_validate(t_obj)
+        except Exception:
+            t_obj = Task.model_construct(**t_obj)
 
     from_status = t_obj.status
 

@@ -13,15 +13,17 @@ export const Card: React.FC<CardProps> = ({
   ...props
 }) => {
   const hoverStyles = hoverable
-    ? 'hover:border-[#8F703655] transition-colors duration-200'
+    ? 'hover:bg-[var(--tint)] transition-all duration-200'
     : '';
 
   return (
     <div
-      className={`bg-surface border border-border rounded-[4px] p-[28px] ${hoverStyles} ${className}`}
+      className={`panel p-6 rounded-none ${hoverStyles} ${className}`}
       {...props}
     >
       {children}
     </div>
   );
 };
+
+export default Card;

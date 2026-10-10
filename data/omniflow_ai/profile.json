@@ -1,0 +1,18 @@
+{
+  "name": "OmniFlow AI",
+  "industry": "Software / SaaS / AI",
+  "offerings": [
+    "Autonomous workflow automation for B2B operations"
+  ],
+  "ideal_customer": "To be defined during market research",
+  "stage": "foundation",
+  "tone": "Clear, helpful, and locally relevant",
+  "id": "omniflow_ai",
+  "channels": [
+    "email",
+    "linkedin"
+  ],
+  "anti_spam": {
+    "opt_out_list": []
+  }
+}

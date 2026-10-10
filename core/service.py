@@ -81,6 +81,12 @@ def start_run(business_id: str, lead_id: str | None = None) -> str:
     return run_id
 
 
+def list_runs(business_id: str | None = None, limit: int = 20) -> list[dict[str, Any]]:
+    """List recent runs for a business or system-wide."""
+    repo = get_repo()
+    return repo.list_runs(business_id=business_id, limit=limit)
+
+
 def get_run(run_id: str) -> dict[str, Any]:
     """Retrieve run execution metadata and current state summary."""
     repo = get_repo()
@@ -93,6 +99,7 @@ def get_run(run_id: str) -> dict[str, Any]:
     state_snapshot = graph.get_state(config)
 
     state_values = state_snapshot.values if state_snapshot else {}
+    summary_from_repo = run_record.get("state_summary") or {}
     current_status = state_values.get("status") or run_record.get("status", "unknown")
 
     # If execution paused at interrupt
@@ -106,12 +113,12 @@ def get_run(run_id: str) -> dict[str, Any]:
         "lead_id": run_record.get("lead_id"),
         "status": current_status,
         "state_summary": {
-            "draft": state_values.get("draft"),
-            "score": state_values.get("score"),
-            "trust_report": state_values.get("trust_report"),
-            "policy_result": state_values.get("policy_result"),
-            "mock_send_result": state_values.get("mock_send_result"),
-            "failed_trust_banner": state_values.get("failed_trust_banner", False),
+            "draft": state_values.get("draft") or summary_from_repo.get("draft"),
+            "score": state_values.get("score") or summary_from_repo.get("score"),
+            "trust_report": state_values.get("trust_report") or summary_from_repo.get("trust_report"),
+            "policy_result": state_values.get("policy_result") or summary_from_repo.get("policy_result"),
+            "mock_send_result": state_values.get("mock_send_result") or summary_from_repo.get("mock_send_result"),
+            "failed_trust_banner": state_values.get("failed_trust_banner", summary_from_repo.get("failed_trust_banner", False)),
         },
     }
 
@@ -129,10 +136,14 @@ def get_review_payload(run_id: str) -> dict[str, Any]:
     snapshot = graph.get_state(config)
     vals = snapshot.values if snapshot else {}
 
-    draft = vals.get("draft")
-    trust_report = vals.get("trust_report")
-    policy_result = vals.get("policy_result")
-    banner = vals.get("failed_trust_banner", False)
+    repo = get_repo()
+    run_rec = repo.get_run(run_id) or {}
+    rep_summary = run_rec.get("state_summary") or {}
+
+    draft = vals.get("draft") or rep_summary.get("draft") or repo.get_draft(run_id)
+    trust_report = vals.get("trust_report") or rep_summary.get("trust_report")
+    policy_result = vals.get("policy_result") or rep_summary.get("policy_result")
+    banner = vals.get("failed_trust_banner", rep_summary.get("failed_trust_banner", False))
 
     return {
         "run_id": run_id,
@@ -212,10 +223,14 @@ def create_business(profile_data: dict[str, Any]) -> dict[str, Any]:
     raw_name = profile_data.get("name", "New Business")
     biz_id = profile_data.get("id") or re.sub(r"[^a-z0-9]+", "_", raw_name.lower()).strip("_") or f"biz_{uuid.uuid4().hex[:6]}"
     profile_data["id"] = biz_id
+    profile_data.setdefault("name", raw_name)
+    profile_data.setdefault("industry", "Technology & Services")
+    profile_data.setdefault("ideal_customer", "B2B Decision Makers and Growth Leaders")
     profile_data.setdefault("offerings", [])
     profile_data.setdefault("channels", ["email", "linkedin"])
     profile_data.setdefault("anti_spam", {"opt_out_list": []})
     profile_data.setdefault("tone", "professional and consultative")
+    profile_data.setdefault("enabled_agents", ["research", "scoring", "outreach", "content", "followup", "learning"])
     return repo.save_business(profile_data)
 
 

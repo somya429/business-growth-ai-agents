@@ -36,6 +36,13 @@ export const TopBar: React.FC = () => {
     queryFn: () => api.listBusinesses(),
   });
 
+  // Automatically select first business if activeBusinessId is unset
+  React.useEffect(() => {
+    if (!activeBusinessId && businesses.length > 0) {
+      setActiveBusinessId(businesses[0].id);
+    }
+  }, [businesses, activeBusinessId, setActiveBusinessId]);
+
   const { data: health } = useQuery({
     queryKey: ['health'],
     queryFn: () => api.getHealth(),
@@ -139,42 +146,43 @@ export const TopBar: React.FC = () => {
         {businesses.length === 0 ? (
           <button
             type="button"
-            onClick={() => navigate('/onboard')}
+            onClick={() => navigate('/onboard?mode=new')}
             className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-accent-soft border border-accent/30 hover:border-accent text-xs text-accent font-medium cursor-pointer transition-colors"
           >
             <PlusCircle className="w-3.5 h-3.5" />
             <span>Create business</span>
           </button>
         ) : (
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-surface-2/80 border border-white/10 hover:border-accent/50 transition-all text-xs text-text cursor-pointer font-medium hover:bg-surface-2"
-              aria-expanded={dropdownOpen}
-            >
-              <Building className="w-3.5 h-3.5 text-accent stroke-[1.5]" />
-              <span className="max-w-[190px] truncate">
-                {currentBusiness?.name || 'Select Business'}
-              </span>
-              <ChevronDown className={`w-3.5 h-3.5 text-text-muted transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
-            </button>
+          <div className="flex items-center gap-2">
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-surface-2/80 border border-white/10 hover:border-accent/50 transition-all text-xs text-text cursor-pointer font-medium hover:bg-surface-2"
+                aria-expanded={dropdownOpen}
+              >
+                <Building className="w-3.5 h-3.5 text-accent stroke-[1.5]" />
+                <span className="max-w-[190px] truncate">
+                  {currentBusiness?.name || 'Select Business'}
+                </span>
+                <ChevronDown className={`w-3.5 h-3.5 text-text-muted transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
 
-            {dropdownOpen && (
-              <div className="absolute left-0 mt-2 w-80 rounded-card bg-surface/95 backdrop-blur-xl border border-white/15 shadow-2xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                <div className="px-3 py-1.5 text-[10px] font-mono uppercase tracking-wider text-text-faint border-b border-white/10 mb-1 flex items-center justify-between">
-                  <span>Active Business Context</span>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setDropdownOpen(false);
-                      navigate('/onboard');
-                    }}
-                    className="text-accent hover:underline lowercase font-sans cursor-pointer text-[11px]"
-                  >
-                    + add
-                  </button>
-                </div>
+              {dropdownOpen && (
+                <div className="absolute left-0 mt-2 w-80 rounded-card bg-surface/95 backdrop-blur-xl border border-white/15 shadow-2xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="px-3 py-1.5 text-[10px] font-mono uppercase tracking-wider text-text-faint border-b border-white/10 mb-1 flex items-center justify-between">
+                    <span>Active Business Context</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDropdownOpen(false);
+                        navigate('/onboard?mode=new');
+                      }}
+                      className="text-accent hover:underline lowercase font-sans cursor-pointer text-[11px]"
+                    >
+                      + add
+                    </button>
+                  </div>
                 {businesses.map((biz) => {
                   const isSelected = biz.id === activeBusinessId;
                   return (
@@ -197,8 +205,9 @@ export const TopBar: React.FC = () => {
               </div>
             )}
           </div>
-        )}
-      </div>
+        </div>
+      )}
+    </div>
 
       {/* Center / Right: Health Indicator + Optional Dev Tools */}
       <div className="flex items-center gap-3">

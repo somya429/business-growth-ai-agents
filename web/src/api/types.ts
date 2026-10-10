@@ -377,3 +377,131 @@ export interface TaskVersion {
   snapshot: Record<string, any>;
   created_at: string;
 }
+
+// -----------------------------------------------------------------------------
+// Stage 4: Atlas Weekly Operations Engine & Strategic Planner Types
+// -----------------------------------------------------------------------------
+export interface WeeklyTodoItem {
+  id: string;
+  day: string;
+  day_number: number;
+  assigned_agent: string;
+  title: string;
+  objective: string;
+  deliverable: string;
+  acceptance_criteria: string[];
+  completed: boolean;
+  auto_ticked: boolean;
+  completed_by?: 'agent' | 'manual' | null;
+  completed_at?: string | null;
+  agent_output?: Record<string, any> | null;
+  task_id?: string | null;
+  priority: 'high' | 'medium' | 'critical';
+}
+
+export interface AuditCheck {
+  check: string;
+  status: 'passed' | 'warning' | 'action_required';
+  detail: string;
+}
+
+export interface StrategicAudit {
+  audited_by: string;
+  verdict: string;
+  coherence_score: number;
+  summary: string;
+  audit_checks: AuditCheck[];
+  strategic_directives: string[];
+  audited_at: string;
+}
+
+export interface WeeklyDayPlan {
+  day: string;
+  day_number: number;
+  theme: string;
+  assigned_agents: string[];
+  items: WeeklyTodoItem[];
+}
+
+export interface WeeklyPlan {
+  id: string;
+  business_id: string;
+  business_name: string;
+  industry: string;
+  week_number: number;
+  focus_goal: string;
+  problem_id: string;
+  phase: string;
+  strategic_audit: StrategicAudit;
+  days: WeeklyDayPlan[];
+  created_at: string;
+  updated_at: string;
+}
+
+// -----------------------------------------------------------------------------
+// Vanguard Growth Forecaster Agent Types
+// -----------------------------------------------------------------------------
+export interface GrowthScenario {
+  label: string;
+  velocity_multiplier: number;
+  pipeline_30d: number;
+  pipeline_60d: number;
+  pipeline_90d: number;
+  accounts_30d: number;
+  accounts_60d: number;
+  accounts_90d: number;
+  expected_revenue_30d: number;
+  expected_revenue_60d: number;
+  expected_revenue_90d: number;
+  confidence_score: number;
+}
+
+export interface NearFuturePrediction {
+  window_days: number;
+  projected_new_accounts: number;
+  projected_new_pipeline_value: number;
+  projected_completed_tasks: number;
+  velocity_status: 'accelerating' | 'steady' | 'blocked' | 'initializing';
+  key_milestones: string[];
+  immediate_blockers: string[];
+  clearance_impact_summary: string;
+}
+
+export interface TillGrowthMetrics {
+  total_tasks: number;
+  completed_tasks: number;
+  in_progress_tasks: number;
+  pending_tasks: number;
+  task_completion_rate: number;
+  autonomous_hours_reclaimed: number;
+  accounts_prospected: number;
+  grounded_drafts_generated: number;
+  approved_dispatches: number;
+  active_runs: number;
+  realized_pipeline_value: number;
+  average_deal_size: number;
+  growth_velocity_tasks_per_day: number;
+}
+
+export interface GrowthForecastReport {
+  business_id: string;
+  business_name: string;
+  industry: string;
+  generated_at: string;
+  till_growth: TillGrowthMetrics;
+  near_future: NearFuturePrediction;
+  scenarios: {
+    conservative: GrowthScenario;
+    expected: GrowthScenario;
+    accelerated: GrowthScenario;
+  };
+  growth_levers: string[];
+  agent_status: string;
+}
+
+export interface GrowthAgentAdvisorResponse {
+  advice: string;
+  key_metrics_referenced: Record<string, any>;
+  prescribed_actions: string[];
+  projected_lift: string;
+}

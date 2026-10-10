@@ -4,20 +4,20 @@ interface KickerProps {
   children: React.ReactNode;
   variant?: 'accent' | 'verified';
   className?: string;
+  withDot?: boolean;
 }
 
 export const Kicker: React.FC<KickerProps> = ({
   children,
-  variant = 'accent',
   className = '',
+  withDot = false,
 }) => {
-  const colorClass = variant === 'verified' ? 'text-verified' : 'text-accent';
-
   return (
-    <div
-      className={`text-[13px] font-sans font-medium uppercase tracking-[0.19em] select-none ${colorClass} ${className}`}
-    >
-      {children}
+    <div className={`eyebrow flex items-center gap-2 select-none ${className}`}>
+      {withDot && <span className="dot" />}
+      <span>{children}</span>
     </div>
   );
 };
+
+export default Kicker;

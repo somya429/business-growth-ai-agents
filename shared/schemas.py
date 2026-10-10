@@ -404,7 +404,7 @@ class Task(BaseModel):
     id: str = Field(default_factory=lambda: f"task_{uuid.uuid4().hex[:8]}")
     title: str = Field(description="Short human-readable task title")
     objective: str = Field(description="Clear measurable task goal")
-    rationale: str = Field(description="Why this matters for the business growth milestone")
+    rationale: str = Field(default="", description="Why this matters for the business growth milestone")
     assigned_agent: str = Field(description="Atlas, Scout, Cadence, Quill, Muse, Veritas, Warden, Courier, Echo, Sage, Compass, Herald")
     business_id: str | None = Field(default=None, description="Business profile or onboarding session identifier")
     phase: PhaseType = Field(default="foundation")

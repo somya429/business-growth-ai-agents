@@ -9,7 +9,30 @@ interface EchoReplyCardProps {
 }
 
 export const EchoReplyCard: React.FC<EchoReplyCardProps> = ({ replyAnalysis }) => {
-  if (!replyAnalysis) return null;
+  if (!replyAnalysis) {
+    return (
+      <Card variant="surface" className="p-6 space-y-4">
+        <div className="flex items-center justify-between border-b border-border pb-3">
+          <div className="flex items-center gap-2.5">
+            <MessageSquare className="w-4 h-4 text-accent stroke-[1.5]" />
+            <h3 className="font-serif text-base text-text font-normal tracking-tight">
+              Echo Reply Classification
+            </h3>
+          </div>
+          <Badge variant="neutral" size="sm">
+            LISTENING
+          </Badge>
+        </div>
+        <p className="text-xs text-text-muted leading-relaxed">
+          Echo Follow-up Agent is actively listening for client replies to the outreach email. When the contact replies, Echo classifies intent (interested, question, pricing, unsubscribe) and drafts a grounded follow-up response.
+        </p>
+        <div className="p-2.5 rounded bg-surface-2 border border-border/80 text-[11px] font-mono text-text-faint flex items-center gap-2">
+          <CornerDownRight className="w-3.5 h-3.5 text-accent" />
+          Test inbound replies live in the Growth Studio conversation desk.
+        </div>
+      </Card>
+    );
+  }
 
   const isEscalated = replyAnalysis.escalate_to_human;
 

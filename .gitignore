@@ -50,6 +50,7 @@ htmlcov/
 data/crm_store.json
 runtime/
 *.sqlite
+*.db
 
 # IDE and OS
 .vscode/

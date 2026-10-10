@@ -29,6 +29,7 @@ export const HomePage: React.FC = () => {
   }, [shouldReduceMotion]);
 
   const agentsStrip = [
+    { name: 'Apex', caption: 'orchestrates', dotColor: 'bg-amber-500' },
     { name: 'Atlas', caption: 'plans', dotColor: 'bg-muted' },
     { name: 'Scout', caption: 'researches', dotColor: 'bg-muted' },
     { name: 'Cadence', caption: 'decides when', dotColor: 'bg-muted' },
@@ -51,7 +52,7 @@ export const HomePage: React.FC = () => {
 
         <div className="relative z-10 max-w-[960px]">
           <Reveal>
-            <Kicker>AI GROWTH TEAM</Kicker>
+            <Kicker>AUTONOMOUS HEAD ORCHESTRATOR & FLEET</Kicker>
           </Reveal>
 
           <Reveal delay={0.15}>
@@ -62,14 +63,17 @@ export const HomePage: React.FC = () => {
 
           <Reveal delay={0.3}>
             <p className="text-[19px] md:text-[20px] text-muted leading-relaxed max-w-[520px] mt-8 font-sans">
-              Agents that find leads, write outreach and follow up. Every claim is checked. You approve what goes out.
+              Autonomous head orchestrator commanding 10 agents to find leads, conduct competitor recon, draft outreach, and audit facts. You retain executive approval.
             </p>
           </Reveal>
 
           <Reveal delay={0.45}>
             <div className="flex flex-wrap items-center gap-4 mt-10">
-              <Button variant="primary" to="/workspace">
-                Work with Agents
+              <Button variant="primary" to="/command">
+                Open Apex Command Deck
+              </Button>
+              <Button variant="secondary" to="/workspace">
+                Growth Studio
               </Button>
               <Button variant="ghost" to="/how">
                 See how it works
